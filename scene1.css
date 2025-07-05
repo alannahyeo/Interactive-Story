@@ -1,0 +1,134 @@
+body{
+    background-image: url('Homepage Background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Syne Mono', monospace;
+    color: white;
+}
+
+.center-box{
+    background-color: black;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px 60px 40px 60px;
+    text-align: center;
+    width: 60%;
+    max-width: 600px;
+    min-height: 400px;
+    box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
+}
+
+.top-text{
+    font-size: 40px;
+    color: red;
+    margin-top: 0;
+    text-align: center;
+}
+
+.social-media-text {
+    font-size: 40px;
+    display: block;
+    margin-top: 10px;
+}
+
+.center-box p {
+    font-size: 32px;
+    margin-top: 20px;
+}
+
+.content-split {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.left-text {
+    width: 50%;
+    padding-right: 20px;
+}
+
+.right-empty {
+    width: 50%;
+    border-left: 1px dashed rgba(255, 255, 255, 0.3);
+    min-height: 100px;
+}
+
+.left-text p {
+    font-size: 24px;
+    text-align: left;
+    margin: 0;
+}
+
+#typewriter-text {
+    white-space: pre-wrap;
+    word-break: break-word;
+    display: block;
+    position: relative;
+    line-height: 3;
+    margin: 0;
+    text-align: left;
+    min-height: 6em;
+    font-size: 1.1rem;
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    width: 2px;
+    background: red;
+    vertical-align: middle;
+    height: 1em;
+    animation: blink-caret 0.75s step-end infinite;
+    position: relative;
+}
+
+@keyframes blink-caret {
+    from, to { opacity: 0; }
+    50% { opacity: 1; }
+}
+
+.left-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 1rem;
+    width: 50%;
+}
+
+.content-split {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.right-empty {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 50%;
+    overflow: hidden;
+}
+
+.right-image{
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
+

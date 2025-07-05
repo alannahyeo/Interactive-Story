@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Story</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne+Mono&family=Titillium+Web:wght@200&display=swap" rel="stylesheet">
+</head>    
+<body>
+    <div class="center-box">
+        <h1 class="top-text" data-text="STATUS: MISSING">STATUS: MISSING</h1>
+        <p> Solve the mystery of the <span class="highlight">missing influencer</span> and uphold justice. </p>
+        <button class="start-button" onclick="startStory()">Start</button>
+    </div>
+    <script src="script.js"></script>
+    <script>
+      window.addEventListener('click', () => {
+        try {
+          window.parent.document.getElementById('bgAudio').play();
+        } catch (e) {
+          console.log("Couldn't access parent audio:", e);
+        }
+      }, {once: true});
+
+      localStorage.setItem('audioInteracted', 'true');
+</script>
+</body>
+</html>

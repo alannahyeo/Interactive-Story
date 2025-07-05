@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Scene 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&family=Titillium+Web:wght@200&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="scene1.css"/>
+</head>
+<body>
+  <div class="center-box">
+    <h1 class="top-text">
+      <span class="investigation-text">Investigation 1:</span>
+      <span class="social-media-text">Eli's Social Media Feed</span>
+    </h1>
+    <div class="content-split">
+      <div class="left-text">
+       <div id="typewriter-text"></div>
+      </div>
+      <div class="right-empty">
+        <img src="eli missing poster.jpg" alt="Eli's Social Media Feed" class="right-image"/>
+
+      </div>
+    </div>
+  </div>
+
+<audio id="fxAudio" src="typewriter-audio.mp3" preload="auto"></audio>
+
+<script>
+  document.addEventListener ('DOMContentLoaded', () => {
+    const fxAudio = document.getElementById('fxAudio');
+
+    const textElement = document.getElementById('typewriter-text');
+    const nextButton = document.getElementById('nextButton');
+
+    const texts = [
+      "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
+      "Authorities are scrambling to trace his digital footprint, but clues are vanishing as quickly as they appear.",
+      "You've been tasked to dig deeper - to uncover the truth behind his disappearance and decode the feed."
+    ];
+
+    let currentIndex = 0;
+
+    function typeWriterText(text, callback) {
+      textElement.textContent = '';
+      const cursor = document.createElement('span');
+      cursor.className = 'typewriter-cursor';
+      textElement.appendChild(cursor);
+
+      let i=0;
+      const speed = 30;
+      
+      function typeNextChar() {
+        if (i < text.length) {
+          const charSpan = document.createElement('span');
+          charSpan.textContent = text.charAt(i);
+          textElement.insertBefore(charSpan, cursor);
+
+          fxAudio.currentTime = 0;
+          fxAudio.play().catch(e => console.log("Typewriter SFX blocked"));
+          i++;
+          setTimeout(typeNextChar, speed);
+        } else {
+          cursor.remove();
+          if (callback) callback();
+
+        }
+      }
+      typeNextChar ();
+    }
+
+    function showNextText() {
+      if (currentIndex < texts.length) {
+        typeWriterText(texts[currentIndex], () => {
+          if (currentIndex < texts.length - 1) {
+            nextButton.style.display = 'inline-block';
+          } else {
+            nextButton.style.display = 'none';
+          }
+        });
+        currentIndex++;
+      }
+    }
+    showNextText();
+
+    nextButton.addEventListener('click', () => {
+      nextButton.style.display = 'none';
+      showNextText();
+    });
+  })
+</script>
+
+</body>
+</html>
