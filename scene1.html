@@ -29,17 +29,13 @@
 
 <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto"></audio>
 <script>
-  document.addEventListener ('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const fxAudio = document.getElementById('fxAudio');
     fxAudio.muted = false;
     fxAudio.play().catch(e => console.log("Autoplay blocked:", e));
 
     const textElement = document.getElementById('typewriter-text');
     const nextButton = document.getElementById('nextButton');
-
-    setTimeout(() => {
-      showNextText();
-    }, 600);
 
     const texts = [
       "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
@@ -55,28 +51,26 @@
       cursor.className = 'typewriter-cursor';
       textElement.appendChild(cursor);
 
-      let i=0;
+      let i = 0;
       const speed = 30;
-      
+
       function typeNextChar() {
         if (i < text.length) {
           const charSpan = document.createElement('span');
           charSpan.textContent = text.charAt(i);
           textElement.insertBefore(charSpan, cursor);
 
-         const fxAudio = document.getElementById('fxAudio');
-fxAudio.muted = false;
-fxAudio.play().catch(e => console.log("Autoplay blocked:", e));
+          fxAudio.muted = false;
+          fxAudio.play().catch(e => console.log("Typewriter SFX blocked:", e));
 
           i++;
           setTimeout(typeNextChar, speed);
         } else {
           cursor.remove();
           if (callback) callback();
-
         }
       }
-      typeNextChar ();
+      typeNextChar();
     }
 
     function showNextText() {
@@ -91,14 +85,18 @@ fxAudio.play().catch(e => console.log("Autoplay blocked:", e));
         currentIndex++;
       }
     }
-    showNextText();
+
+    setTimeout(() => {
+      showNextText();
+    }, 600); // Fade delay only here
 
     nextButton.addEventListener('click', () => {
       nextButton.style.display = 'none';
       showNextText();
     });
-  })
+  });
 </script>
+
 
 </body>
 </html>
