@@ -16,23 +16,9 @@ function startStory() {
 
             document.body.classList.add('fade-out');
 
-            let transitionCompleted = false;
-
-            document.body.addEventListener('transitionend', function handler () {
-                if (!transitionCompleted) {
-                    transitionCompleted = true;
-                    frame.src = 'scene1.html';
-                    document.body.removeEventListener('transitionend', handler);
-                }
-            });
-
-            setTimeout(() => {
-                if (!transitionCompleted) {
-                    frame.src = 'scene1.html';
-                }
-            }, 1100);
-        } else {
-            console.error("Iframe with ID 'sceneFrame' not found.");
+            setTimeout (() => {
+                frame.src = 'scene1.html';
+            }, 500);
         }
     } else {
         // fallback if not in iframe (debugging or direct access)
