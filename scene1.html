@@ -9,7 +9,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&family=Titillium+Web:wght@200&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="scene1.css"/>
 </head>
-<body class="'fade-in">
+<body class="fade-in">
   <div class="center-box">
     <h1 class="top-text">
       <span class="investigation-text">Investigation 1:</span>
@@ -30,12 +30,16 @@
 <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto"></audio>
 <script>
   document.addEventListener ('DOMContentLoaded', () => {
+    const fxAudio = document.getElementById('fxAudio');
     fxAudio.muted = false;
     fxAudio.play().catch(e => console.log("Autoplay blocked:", e));
-    const fxAudio = document.getElementById('fxAudio');
 
     const textElement = document.getElementById('typewriter-text');
     const nextButton = document.getElementById('nextButton');
+
+    setTimeout(() => {
+      showNextText();
+    }, 600);
 
     const texts = [
       "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
@@ -60,9 +64,10 @@
           charSpan.textContent = text.charAt(i);
           textElement.insertBefore(charSpan, cursor);
 
-          const fxAudio = document.getElementById('fxAudio');
-          fxAudio.muted = false;
-          fxAudio.play().catch(e => console.log("Typewriter SFX blocked:", e));
+         const fxAudio = document.getElementById('fxAudio');
+fxAudio.muted = false;
+fxAudio.play().catch(e => console.log("Autoplay blocked:", e));
+
           i++;
           setTimeout(typeNextChar, speed);
         } else {
