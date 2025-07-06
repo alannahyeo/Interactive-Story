@@ -3,30 +3,39 @@ console.log("Website is loaded!");
 function startStory() {
     console.log("Start clicked");
 
-    const audio = window.parent.document.getElementById('bgAudio');
-    if (audio) {
-        localStorage.setItem('audioTime', audio.currentTime);
-        localStorage.setItem('audioPlaying', !audio.paused);
-    }
+    const isInIframe = window !== window.parent;
 
-    const frame = window.captureEvents.document.getElementById('sceneFrame');
-    if (!frame) {
-        console.error("Iframe not found. Are you opening master.html");
-        return;
-    }
+    if (isInIframe) {
+        const frame = window.parent.document.getElementById('sceneFrame');
+        if (frame) {
+            const audio = window.parent.document.getElementById('bgAudio');
+            if (audio) {
+                localStorage.setItem('audioTime', audio.currentTime);
+                localStorage.setItem('audioPlaying', !audio.paused);
+            }
 
-    document.body.classList.add('fade-out');
+            document.body.classList.add('fade-out');
 
-    document.body.addEventListener('transitionend', function handler(){
-        frame.src = 'scene1.html';
-        document.body.removeEventListener('transitionend', handler);
-        console.log("Scene changed to scene1.html");
-    });
+            let transitionCompleted = false;
 
-    setTimeout(() => {
-        if (frame.src.indexOf('scene1.html') === -1) {
-            frame.src = 'scene1.html';
-            console.log("Scene changed via fallback");
+            document.body.addEventListener('transitionend', function handler () {
+                if (!transitionCompleted) {
+                    transitionCompleted = true;
+                    frame.src = 'scene1.html';
+                    document.body.removeEventListener('transitionend', handler);
+                }
+            });
+
+            setTimeout(() => {
+                if (!transitionCompleted) {
+                    frame.src = 'scene1.html';
+                }
+            }, 1100);
+        } else {
+            console.error("Iframe with ID 'sceneFrame' not found.");
         }
-    }, 1500);
+    } else {
+        // fallback if not in iframe (debugging or direct access)
+        window.location.href = 'scene1.html';
+    }
 }
