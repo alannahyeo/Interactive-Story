@@ -12,6 +12,15 @@ body{
     color: white;
 }
 
+iframe{
+    width: 960px;
+    height: 540px;
+    aspect-ratio: 16/9;
+    border: none;
+    background-color: brown;
+    overflow: hidden;
+}
+
 .center-box{
     background-color: black;
     border: 2px solid black;
@@ -126,6 +135,14 @@ body{
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
 
 
 
