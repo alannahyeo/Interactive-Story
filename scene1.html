@@ -9,7 +9,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&family=Titillium+Web:wght@200&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="scene1.css"/>
 </head>
-<body>
+<body class="'fade-in">
   <div class="center-box">
     <h1 class="top-text">
       <span class="investigation-text">Investigation 1:</span>
@@ -28,7 +28,6 @@
   </div>
 
 <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto"></audio>
-
 <script>
   document.addEventListener ('DOMContentLoaded', () => {
     fxAudio.muted = false;
@@ -61,8 +60,8 @@
           charSpan.textContent = text.charAt(i);
           textElement.insertBefore(charSpan, cursor);
 
+          const fxAudio = document.getElementById('fxAudio');
           fxAudio.muted = false;
-          fxAudio.currentTime = 0;
           fxAudio.play().catch(e => console.log("Typewriter SFX blocked:", e));
           i++;
           setTimeout(typeNextChar, speed);
