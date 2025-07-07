@@ -21,79 +21,84 @@
         <p id="continuePrompt" class="continue-prompt" style="display: none;">Press To Continue</p>
       </div>
       <div class="right-empty">
-        <img src="ec5a0196-1dd1-437b-a807-c1b5581254be.png" alt="Eli's Social Media Feed" class="right-image"
+        <img src="eli-missing-poster.png" alt="Eli's Social Media Feed" class="right-image"
      onerror="this.style.display='none'; console.error('Image not found')"/>
       </div>
     </div>
   </div>
 
   <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto"></audio>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const fxAudio = document.getElementById('fxAudio');
-      const textElement = document.getElementById('typewriter-text');
-      const continuePrompt = document.getElementById('continuePrompt');
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const fxAudio = document.getElementById('fxAudio');
+    const textElement = document.getElementById('typewriter-text');
+    const continuePrompt = document.getElementById('continuePrompt');
 
-      const texts = [
-        "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
-        "Authorities are scrambling to trace his digital footprint, but clues are vanishing as quickly as they appear.",
-        "You've been tasked to dig deeper - to uncover the truth behind his disappearance and decode the feed."
-      ];
+    const texts = [
+      "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
+      "Authorities are scrambling to trace his digital footprint, but clues are vanishing as quickly as they appear.",
+      "You've been tasked to dig deeper - to uncover the truth behind his disappearance and decode the feed."
+    ];
 
-      let currentIndex = 0;
+    let currentIndex = 0;
 
-      function typeWriterText(text, callback) {
-        textElement.textContent = '';
-        const cursor = document.createElement('span');
-        cursor.className = 'typewriter-cursor';
-        textElement.appendChild(cursor);
+    function typeWriterText(text, callback) {
+      textElement.textContent = '';
+      const cursor = document.createElement('span');
+      cursor.className = 'typewriter-cursor';
+      textElement.appendChild(cursor);
 
-        let i = 0;
-        const speed = 30;
+      let i = 0;
+      const speed = 30;
 
-        function typeNextChar() {
-          if (i < text.length) {
-            const charSpan = document.createElement('span');
-            charSpan.textContent = text.charAt(i);
-            textElement.insertBefore(charSpan, cursor);
+      function typeNextChar() {
+        if (i < text.length) {
+          const charSpan = document.createElement('span');
+          charSpan.textContent = text.charAt(i);
+          textElement.insertBefore(charSpan, cursor);
 
-            fxAudio.muted = false;
-            fxAudio.play().catch(e => console.log("Typewriter SFX blocked:", e));
+          fxAudio.muted = false;
+          fxAudio.play().catch(e => console.warn("Audio blocked by browser:", e));
 
-            i++;
-            setTimeout(typeNextChar, speed);
+          i++;
+          setTimeout(typeNextChar, speed);
+        } else {
+          cursor.remove();
+          console.log("Finished typing text:", text);
+          if (callback) callback();
+        }
+      }
+
+      typeNextChar();
+    }
+
+    function showNextText() {
+      console.log("Current index:", currentIndex);
+      if (currentIndex < texts.length) {
+        continuePrompt.style.display = 'none';
+        typeWriterText(texts[currentIndex], () => {
+          if (currentIndex < texts.length - 1) {
+            console.log("Showing continue button...");
+            continuePrompt.style.display = 'inline-block';
           } else {
-            cursor.remove();
-            if (callback) {
-              callback();
-            }
+            console.log("Last message shown.");
+            continuePrompt.style.display = 'none';
           }
-        }
-        typeNextChar();
+        });
+        currentIndex++;
       }
+    }
 
-      function showNextText() {
-        if (currentIndex < texts.length) {
-          continuePrompt.style.display = 'none';
-          typeWriterText(texts[currentIndex], () => {
-            if (currentIndex < texts.length - 1) {
-              continuePrompt.style.display = 'inline-block';
-            } else {
-              continuePrompt.style.display = 'none';
-            }
-          });
-          currentIndex++;
-        }
-      }
+    setTimeout(() => {
+      showNextText();
+    }, 600);
 
-      setTimeout(() => {
-        showNextText();
-      }, 600);
-
-      continuePrompt.addEventListener('click', () => {
-        showNextText();
-      });
+    continuePrompt.addEventListener('click', () => {
+      console.log("Continue button clicked");
+      showNextText();
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
