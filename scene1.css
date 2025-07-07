@@ -71,8 +71,8 @@ body {
   word-break: break-word;
   display: block;
   position: relative;
-  line-height: 3;
-  margin: 0;
+  line-height: 1.6;
+  margin: 1rem;
   text-align: left;
   min-height: 6em;
   font-size: 1.1rem;
