@@ -25,7 +25,7 @@ iframe{
     background-color: black;
     border: 2px solid black;
     border-radius: 20px;
-    padding: 20px 60px 20px 60px;
+    padding: 20px 60px 10px 60px;
     text-align: center;
     width: 60%;
     max-width: 600px;
@@ -58,7 +58,7 @@ iframe{
     align-items: stretch;
     height: 100%;
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .left-text {
@@ -114,13 +114,13 @@ iframe{
 }
 
 .right-image{
-    width: 100%;
+    width: auto;
     max-width: 100%;
     height: auto;
     object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    max-height: 90%;
+    max-height: 100%;
 }
 
 .fade-in {
