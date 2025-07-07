@@ -73,16 +73,13 @@
     }
 
     function showNextText() {
-      console.log("Current index:", currentIndex);
       if (currentIndex < texts.length) {
-        continuePrompt.style.display = 'none';
-        typeWriterText(texts[currentIndex], () => {
-          if (currentIndex < texts.length - 1) {
-            console.log("Showing continue button...");
-            continuePrompt.style.display = 'inline-block';
+        continuePrompt.classList.remove('show');
+        typeWriterText(texts[currentIndex], () =>{
+          if (currentIndex < texts.length -1) {
+            continuePrompt.classList.add('show');
           } else {
-            console.log("Last message shown.");
-            continuePrompt.style.display = 'none';
+            continuePrompt.classList.remove('show');
           }
         });
         currentIndex++;
