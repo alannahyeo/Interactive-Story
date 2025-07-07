@@ -144,28 +144,25 @@ iframe{
     to {opacity: 1;}
 }
 
-#continueButton {
-    align-self: flex-start;
-    margin-top: 20px;
-    font-size: 20px;
-    padding: 12px 24px;
-    background-color: black;
-    color: white;
-    border: 2px solid red;
-    border-radius: 8px;
+.continue-prompt {
     font-family: 'Syne Mono', monospace;
-    box-shadow: 0 0 10px red, 0 0 20px red;
+    font-size: 18px;
+    color: red;
+    text-shadow: 0 0 5px red, 0 0 10px red;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    align-self: flex-start;
+    margin-top: 30px;
+    animation: glowText 1.5s ease-in-out infinite alternate;
+    user-select: none;
 }
 
-#continueButton:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px red, 0 0 40px red;
+@keyframes glowText {
+    from {
+        text-shadow: 0 0 5px red;
+        opacity: 0.6;
+    }
+    to {
+        text-shadow: 0 0 20px red;
+        opacity: 1;
+    }
 }
-
-
-
-
-
-
