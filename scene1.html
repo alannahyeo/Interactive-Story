@@ -72,19 +72,15 @@
       typeNextChar();
     }
 
-    function showNextText() {
-      if (currentIndex < texts.length) {
-        continuePrompt.classList.remove('show');
-        typeWriterText(texts[currentIndex], () =>{
-          if (currentIndex < texts.length -1) {
-            continuePrompt.classList.add('show');
-          } else {
-            continuePrompt.classList.remove('show');
-          }
-        });
-        currentIndex++;
-      }
+   function showNextText() {
+    if (currentIndex < texts.length) {
+      continuePrompt.classList.remove('show');
+      typeWriterText(texts[currentIndex], () => {
+        continuePrompt.classList.add('show');
+      });
+      currentIndex++;
     }
+   }
 
     setTimeout(() => {
       showNextText();
