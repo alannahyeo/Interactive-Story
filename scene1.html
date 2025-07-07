@@ -23,7 +23,7 @@
         <img src="eli missing poster.jpg" alt="Eli's Social Media Feed" class="right-image"/>
 
       </div>
-      <button id="nextButton" style="display: none;">Next</button>
+      <button id="continueButton" style="display: none;">Press To Continue</button>
     </div>
   </div>
 
@@ -35,7 +35,7 @@
     fxAudio.play().catch(e => console.log("Autoplay blocked:", e));
 
     const textElement = document.getElementById('typewriter-text');
-    const nextButton = document.getElementById('nextButton');
+    const continueButton = document.getElementById('continueButton');
 
     const texts = [
       "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
@@ -67,31 +67,32 @@
           setTimeout(typeNextChar, speed);
         } else {
           cursor.remove();
-          if (callback) callback();
+          if (callback) {
+            continueButton.style.display = 'inline-block';
+            callback ();
+          }
         }
       }
       typeNextChar();
     }
 
-    function showNextText() {
-      if (currentIndex < texts.length) {
-        typeWriterText(texts[currentIndex], () => {
-          if (currentIndex < texts.length - 1) {
-            nextButton.style.display = 'inline-block';
-          } else {
-            nextButton.style.display = 'none';
-          }
-        });
-        currentIndex++;
-      }
+   function showNextText () {
+    if (currentIndex < texts.length) {
+      continueButton.style.display = 'none';
+      typeWriterText(texts[currentIndex], () => {
+        if (currentIndex < texts.length - 1) {
+          continueButton.style.display = 'inline-block';
+        }
+      });
+      currentIndex++;
     }
+   }
 
     setTimeout(() => {
       showNextText();
     }, 600); // Fade delay only here
 
-    nextButton.addEventListener('click', () => {
-      nextButton.style.display = 'none';
+    continueButton.addEventListener('click', () => {
       showNextText();
     });
   });
