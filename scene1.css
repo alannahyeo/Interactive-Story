@@ -51,7 +51,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   height: 100%;
   padding: 0.1rem;
   gap: 1rem;
@@ -133,20 +133,18 @@ body {
 }
 
 .continue-prompt {
-  position: absolute;
-  top: 50%;
-  left: 10%;
-  transform: translateY(-50%);
+  font-family: 'Syne Mono', monospace;
   font-size: 14px;
   color: red;
   text-shadow: 0 0 5px red, 0 0 10px red;
+  cursor: pointer;
   user-select: none;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s ease;
-  animation: glowText 1.5s ease-in-out infinite alternate;
-  align-self: center;
-  margin-top: auto;
-  padding-bottom: 10px;
+  align-self: center;     /* horizontally centered */
+  margin-top: auto;       /* push to bottom */
+  padding-bottom: 10px;   /* spacing from bottom */
 }
+
 
