@@ -18,12 +18,12 @@
     <div class="content-split">
       <div class="left-text">
        <div id="typewriter-text"></div>
+       <p id="continuePrompt" class="continue-prompt" style="display: none;">Press To Continue</p>
       </div>
       <div class="right-empty">
         <img src="eli missing poster.jpg" alt="Eli's Social Media Feed" class="right-image"/>
 
       </div>
-      <button id="continueButton" style="display: none;">Press To Continue</button>
     </div>
   </div>
 
@@ -35,7 +35,7 @@
     fxAudio.play().catch(e => console.log("Autoplay blocked:", e));
 
     const textElement = document.getElementById('typewriter-text');
-    const continueButton = document.getElementById('continueButton');
+    const continuePrompt = document.getElementById('continuePrompt');
 
     const texts = [
       "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
@@ -68,7 +68,7 @@
         } else {
           cursor.remove();
           if (callback) {
-            continueButton.style.display = 'inline-block';
+            continuePrompt.style.display = 'inline-block';
             callback ();
           }
         }
@@ -78,10 +78,10 @@
 
    function showNextText () {
     if (currentIndex < texts.length) {
-      continueButton.style.display = 'none';
+      continuePrompt.style.display = 'none';
       typeWriterText(texts[currentIndex], () => {
         if (currentIndex < texts.length - 1) {
-          continueButton.style.display = 'inline-block';
+          continuePrompt.style.display = 'inline-block';
         }
       });
       currentIndex++;
@@ -92,7 +92,7 @@
       showNextText();
     }, 600); // Fade delay only here
 
-    continueButton.addEventListener('click', () => {
+    continuePrompt.addEventListener('click', () => {
       showNextText();
     });
   });
