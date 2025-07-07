@@ -148,3 +148,30 @@ body {
     opacity: 1;
   }
 }
+
+.right-empty {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+  max-width: 50%;
+  overflow: hidden;
+  height: 100%;
+}
+
+.continue-prompt {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: red;
+  text-shadow: 0 0 5px red, 0 0 10px red;
+  user-select: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: glowText 1.5s ease-in-out infinite alternate;
+}
+
