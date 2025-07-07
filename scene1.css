@@ -8,7 +8,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  font-family: 'Syne Mono', monospace;
+  font-family: 'Syne Mono', monospace, sans-serif;
   color: white;
 }
 
@@ -16,7 +16,7 @@ body {
   background-color: black;
   border: 2px solid black;
   border-radius: 20px;
-  padding: 20px 60px 20px 60px;
+  padding: 20px 60px;
   text-align: center;
   width: 60%;
   max-width: 600px;
@@ -119,4 +119,19 @@ body {
   text-shadow: 0 0 5px red, 0 0 10px red;
   cursor: pointer;
   align-self: flex-start;
+  margin-top: 30px;
+  animation: glowText 1.5s ease-in-out infinite alternate;
+  user-select: none;
+}
+
+/* ✅ MISSING PIECE - add this! */
+@keyframes glowText {
+  from {
+    text-shadow: 0 0 5px red;
+    opacity: 0.6;
+  }
+  to {
+    text-shadow: 0 0 20px red;
+    opacity: 1;
+  }
 }
