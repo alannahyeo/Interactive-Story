@@ -45,36 +45,34 @@
 
     let currentIndex = 0;
 
-    function typeWriterText(text, callback) {
-      textElement.textContent = '';
-      const cursor = document.createElement('span');
-      cursor.className = 'typewriter-cursor';
-      textElement.appendChild(cursor);
+   function typeWriterText(text, callback) {
+  textElement.textContent = '';
+  const cursor = document.createElement('span');
+  cursor.className = 'typewriter-cursor';
+  textElement.appendChild(cursor);
 
-      let i = 0;
-      const speed = 30;
+  let i = 0;
+  const speed = 30;
 
-      function typeNextChar() {
-        if (i < text.length) {
-          const charSpan = document.createElement('span');
-          charSpan.textContent = text.charAt(i);
-          textElement.insertBefore(charSpan, cursor);
+  function typeNextChar() {
+    if (i < text.length) {
+      const charSpan = document.createElement('span');
+      charSpan.textContent = text.charAt(i);
+      textElement.insertBefore(charSpan, cursor);
 
-          fxAudio.muted = false;
-          fxAudio.play().catch(e => console.log("Typewriter SFX blocked:", e));
+      fxAudio.muted = false;
+      fxAudio.play().catch(e => console.log("Typewriter SFX blocked:", e));
 
-          i++;
-          setTimeout(typeNextChar, speed);
-        } else {
-          cursor.remove();
-          if (callback) {
-            continuePrompt.style.display = 'inline-block';
-            callback ();
-          }
-        }
-      }
-      typeNextChar();
+      i++;
+      setTimeout(typeNextChar, speed);
+    } else {
+      cursor.remove();
+      if (callback) callback();
     }
+  }
+  typeNextChar();
+}
+
 
    function showNextText() {
     if (currentIndex < texts.length) {
@@ -90,9 +88,9 @@
     }
    }
 
-    setTimeout(() => {
-      showNextText();
-    }, 600); // Fade delay only here
+   setTimeout(() => {
+    showNextText(() =>{});
+   }, 600);
 
     continuePrompt.addEventListener('click', () => {
       showNextText();
