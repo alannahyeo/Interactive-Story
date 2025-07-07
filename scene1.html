@@ -21,7 +21,7 @@
        <p id="continuePrompt" class="continue-prompt" style="display: none;">Press To Continue</p>
       </div>
       <div class="right-empty">
-        <img src="eli missing poster.png" alt="Eli's Social Media Feed" class="right-image"/>
+        <img src="eli-missing-poster.png" alt="Eli's Social Media Feed" class="right-image"/>
 
       </div>
     </div>
@@ -76,15 +76,17 @@
       typeNextChar();
     }
 
-   function showNextText () {
+   function showNextText() {
     if (currentIndex < texts.length) {
       continuePrompt.style.display = 'none';
       typeWriterText(texts[currentIndex], () => {
-        if (currentIndex < texts.length - 1) {
+        if (currentIndex < texts.length -1) {
           continuePrompt.style.display = 'inline-block';
         }
       });
       currentIndex++;
+    } else {
+      continuePrompt.style.display = 'none';
     }
    }
 
