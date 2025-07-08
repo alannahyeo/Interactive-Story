@@ -92,7 +92,7 @@ body {
   max-height: 100%;
   object-fit: contain;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px red, 0 0 40px red, 0 0 60px red;
   margin-bottom: 20px;
 }
 
