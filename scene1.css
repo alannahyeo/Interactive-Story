@@ -94,7 +94,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 6px rgba(255, 0, 0, 0.4), 0 0 12px rgba(255, 0, 0, 0.3);
   margin-bottom: 20px;
-  animation: intenseGlow 2s ease-in-out infinite;
+  animation: naturalGlow 2.5s ease-in-out infinite;
 }
 
 .fade-in {
@@ -155,14 +155,15 @@ body {
   pointer-events: none;
 }
 
-@keyframes intenseGlow {
+@keyframes naturalGlow {
   0% {
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.9), 0 0 40px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.7);
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.6), 0 0 24px rgba(255, 0, 0, 0.4);
   }
   50% {
-    box-shadow: 0 0 40px rgba(255, 0, 0, 1), 0 0 80px rgba(255, 0, 0, 0.9), 0 0 100px rgba(255, 0, 0, 0.8);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.75), 0 0 40px rgba(255, 0, 0, 0.5);
   }
   100% {
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.9), 0 0 40px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 0, 0, 0.7);
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.6), 0 0 24px rgba(255, 0, 0, 0.4);
   }
 }
+
