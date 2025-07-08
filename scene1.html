@@ -62,7 +62,7 @@
 
           fxAudio.pause();
           fxAudio.currentTime = 0;
-          fxAudio.play().catch(e => console.warn("Audio blocked: " + e));
+          fxAudio.play().catch(e => console.warn("Audio error:", e));
 
           i++;
           setTimeout(typeNextChar, speed);
@@ -85,15 +85,14 @@
       }
     }
 
-    // Start instantly with no delay
-    fxAudio.play().catch(e => console.warn("Autoplay blocked: " + e));
+    // Show the first paragraph when page loads
     showNextText();
 
-    continuePrompt.addEventListener('click', () => {
-      showNextText();
-    });
+    // Next paragraphs appear on click
+    continuePrompt.addEventListener('click', showNextText);
   });
 </script>
+
 
 
 
