@@ -148,4 +148,10 @@ body {
   padding-bottom: 10px;   /* spacing from bottom */
 }
 
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none;
+}
+
 
