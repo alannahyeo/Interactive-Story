@@ -44,10 +44,12 @@
     let currentIndex = 0;
 
     function typeWriterText(text, callback) {
-      textElement.textContent = '';
+      const paragraph = document.createElement('p');
+      paragraph.style.margin = '0 0 1rem 0';
       const cursor = document.createElement('span');
       cursor.className = 'typewriter-cursor';
-      textElement.appendChild(cursor);
+      paragraph.appendChild(cursor);
+      textElement.appendChild(paragraph);
 
       let i = 0;
       const speed = 30;
@@ -56,11 +58,11 @@
         if (i < text.length) {
           const charSpan = document.createElement('span');
           charSpan.textContent = text.charAt(i);
-          textElement.insertBefore(charSpan, cursor);
+          paragraph.insertBefore(charSpan, cursor);
 
           fxAudio.pause();
           fxAudio.currentTime = 0;
-          fxAudio.play().catch(e => console.warn("Audio blocked by browser: " + e));
+          fxAudio.play().catch(e => console.warn("Audio blocked: " + e));
 
           i++;
           setTimeout(typeNextChar, speed);
@@ -83,16 +85,16 @@
       }
     }
 
-    setTimeout(() => {
-      fxAudio.play().catch(e => console.warn("Autoplay blocked: " + e));
-      showNextText();
-    }, 600);
+    // Start instantly with no delay
+    fxAudio.play().catch(e => console.warn("Autoplay blocked: " + e));
+    showNextText();
 
     continuePrompt.addEventListener('click', () => {
       showNextText();
     });
   });
 </script>
+
 
 
 </body>
