@@ -61,10 +61,7 @@ body {
 #typewriter-text {
   white-space: pre-wrap;
   word-break: break-word;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  display: block;
   line-height: 2;
   text-align: left;
   min-height: 10em;
