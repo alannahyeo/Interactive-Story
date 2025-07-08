@@ -49,7 +49,7 @@
       cursor.className = 'typewriter-cursor';
       textElement.appendChild(cursor);
 
-      let i = 0;
+      let i=0;
       const speed = 30;
 
       function typeNextChar() {
@@ -58,14 +58,14 @@
           charSpan.textContent = text.charAt(i);
           textElement.insertBefore(charSpan, cursor);
 
-          fxAudio.muted = false;
-          fxAudio.play().catch(e => console.warn("Autoplay blocked:", e));
+          fxAudio.pause();
+          fxAudio.currentTime = 0;
+          fxAudio.play().catch(e => console.warn("Audio blocked by browser:" e));
 
           i++;
           setTimeout(typeNextChar, speed);
         } else {
           cursor.remove();
-          console.log("Finished typing text:", text);
           if (callback) callback();
         }
       }
