@@ -49,7 +49,7 @@
       cursor.className = 'typewriter-cursor';
       textElement.appendChild(cursor);
 
-      let i=0;
+      let i = 0;
       const speed = 30;
 
       function typeNextChar() {
@@ -60,7 +60,7 @@
 
           fxAudio.pause();
           fxAudio.currentTime = 0;
-          fxAudio.play().catch(e => console.warn("Audio blocked by browser:" e));
+          fxAudio.play().catch(e => console.warn("Audio blocked by browser: " + e));
 
           i++;
           setTimeout(typeNextChar, speed);
@@ -73,28 +73,27 @@
       typeNextChar();
     }
 
-   function showNextText() {
-    if (currentIndex < texts.length) {
-      continuePrompt.classList.remove('show');
-      typeWriterText(texts[currentIndex], () => {
-        continuePrompt.classList.add('show');
-      });
-      currentIndex++;
+    function showNextText() {
+      if (currentIndex < texts.length) {
+        continuePrompt.classList.remove('show');
+        typeWriterText(texts[currentIndex], () => {
+          continuePrompt.classList.add('show');
+        });
+        currentIndex++;
+      }
     }
-   }
 
-    setTimeout(()=> {
-      fxAudio
-      fxAudio.play().catch(e => console.warn("Autoplay blocked:", e));
+    setTimeout(() => {
+      fxAudio.play().catch(e => console.warn("Autoplay blocked: " + e));
       showNextText();
     }, 600);
 
     continuePrompt.addEventListener('click', () => {
-      console.log("Continue button clicked");
       showNextText();
     });
   });
 </script>
+
 
 </body>
 </html>
