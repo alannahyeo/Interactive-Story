@@ -44,14 +44,18 @@
     let currentIndex = 0;
 
     function typeWriterText(text, callback) {
+      isTyping = true;
+      textElement.innerHTML = '';
+
       const paragraph = document.createElement('p');
       paragraph.style.margin = '0 0 1rem 0';
+
       const cursor = document.createElement('span');
       cursor.className = 'typewriter-cursor';
       paragraph.appendChild(cursor);
       textElement.appendChild(paragraph);
 
-      let i = 0;
+      let i=0;
       const speed = 30;
 
       function typeNextChar() {
@@ -68,12 +72,14 @@
           setTimeout(typeNextChar, speed);
         } else {
           cursor.remove();
+          isTyping = false;
           if (callback) callback();
         }
       }
 
       typeNextChar();
     }
+      
 
     function showNextText() {
       if (currentIndex < texts.length) {
@@ -92,9 +98,5 @@
     continuePrompt.addEventListener('click', showNextText);
   });
 </script>
-
-
-
-
 </body>
 </html>
