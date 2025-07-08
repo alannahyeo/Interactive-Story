@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto"></audio>
+  <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto" loop></audio>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const fxAudio = document.getElementById('fxAudio');
@@ -44,7 +44,6 @@
     let currentIndex = 0;
 
     function typeWriterText(text, callback) {
-      isTyping = true;
       textElement.innerHTML = '';
 
       const paragraph = document.createElement('p');
@@ -58,27 +57,28 @@
       let i=0;
       const speed = 30;
 
+      fxAudio.currentTime = 0;
+      fxAudio.play().catch(e => console.warn("Audio error:", e));
+
       function typeNextChar() {
         if (i < text.length) {
           const charSpan = document.createElement('span');
           charSpan.textContent = text.charAt(i);
           paragraph.insertBefore(charSpan, cursor);
-
-          fxAudio.pause();
-          fxAudio.currentTime = 0;
-          fxAudio.play().catch(e => console.warn("Audio error:", e));
-
+        
           i++;
           setTimeout(typeNextChar, speed);
         } else {
+
+          fxAudio.pause();
           cursor.remove();
-          isTyping = false;
           if (callback) callback();
         }
       }
 
       typeNextChar();
     }
+     
       
 
     function showNextText() {
@@ -98,5 +98,6 @@
     continuePrompt.addEventListener('click', showNextText);
   });
 </script>
+
 </body>
 </html>
