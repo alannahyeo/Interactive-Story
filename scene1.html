@@ -59,7 +59,7 @@
           textElement.insertBefore(charSpan, cursor);
 
           fxAudio.muted = false;
-          fxAudio.play().catch(e => console.warn("Audio blocked by browser:", e));
+          fxAudio.play().catch(e => console.warn("Autoplay blocked:", e));
 
           i++;
           setTimeout(typeNextChar, speed);
@@ -83,7 +83,9 @@
     }
    }
 
-    setTimeout(() => {
+    setTimeout(()=> {
+      fxAudio
+      fxAudio.play().catch(e => console.warn("Autoplay blocked:", e));
       showNextText();
     }, 600);
 
