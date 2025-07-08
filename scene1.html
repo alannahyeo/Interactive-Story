@@ -12,6 +12,7 @@
 </head>
 <body class="fade-in">
   <div class="center-box">
+    <div class="scene-content"></div>
     <h1 class="top-text">
       <span class="investigation-text">Investigation 1:</span>
       <span class="social-media-text">Eli's Social Media Feed</span>
@@ -88,6 +89,10 @@
           continuePrompt.classList.add('show');
         });
         currentIndex++;
+      } else {
+        const sceneContent = document.querySelector('.scene-content');
+        continuePrompt.classList.remove('show');
+        sceneContent.classList.add('fade-out');
       }
     }
 
