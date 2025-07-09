@@ -41,88 +41,85 @@
   <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto" loop></audio>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const fxAudio = document.getElementById('fxAudio');
-    const textElement = document.getElementById('typewriter-text');
-    const continuePrompt = document.getElementById('continuePrompt');
+  const fxAudio = document.getElementById('fxAudio');
+  const textElement = document.getElementById('typewriter-text');
+  const continuePrompt = document.getElementById('continuePrompt');
 
-    const texts = [
-      "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
-      "Authorities are scrambling to trace his digital footprint, but clues are vanishing as quickly as they appear.",
-      "You've been tasked to dig deeper - to uncover the truth behind his disappearance and decode the feed."
-    ];
+  const texts = [
+    "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
+    "Authorities are scrambling to trace his digital footprint, but clues are vanishing as quickly as they appear.",
+    "You've been tasked to dig deeper - to uncover the truth behind his disappearance and decode the feed."
+  ];
 
-    let currentIndex = 0;
+  let currentIndex = 0;
 
-    function typeWriterText(text, callback) {
-      textElement.innerHTML = '';
+  function typeWriterText(text, callback) {
+    textElement.innerHTML = '';
 
-      const paragraph = document.createElement('p');
-      paragraph.style.margin = '0 0 1rem 0';
+    const paragraph = document.createElement('p');
+    paragraph.style.margin = '0 0 1rem 0';
 
-      const cursor = document.createElement('span');
-      cursor.className = 'typewriter-cursor';
-      paragraph.appendChild(cursor);
-      textElement.appendChild(paragraph);
+    const cursor = document.createElement('span');
+    cursor.className = 'typewriter-cursor';
+    paragraph.appendChild(cursor);
+    textElement.appendChild(paragraph);
 
-      let i=0;
-      const speed = 30;
+    let i = 0;
+    const speed = 30;
 
-      fxAudio.currentTime = 0;
-      fxAudio.play().catch(e => console.warn("Audio error:", e));
+    fxAudio.currentTime = 0;
+    fxAudio.play().catch(e => console.warn("Audio error:", e));
 
-      function typeNextChar() {
-        if (i === 0) {
-          fxAudio.currentTime = 0;
-          fxAudio.play().catch(e => console.warn("Audio error:", e));
-        }
-
-        if (i < text.length) {
-          const charSpan = document.createElement('span');
-          charSpan.textContent = text.charAt(i);
-          paragraph.insertBefore(charSpan, cursor);
-
-          i++;
-          setTimeout(typeNextChar, speed);
-        } else {
-          fxAudio.pause();
-          cursor.remove();
-          if (callback) callback();
-        }
+    function typeNextChar() {
+      if (i === 0) {
+        fxAudio.currentTime = 0;
+        fxAudio.play().catch(e => console.warn("Audio error:", e));
       }
 
-      typeNextChar();
-    }
-     
-      
-
-    function showNextText() {
-      if (currentIndex < texts.length) {
-        continuePrompt.classList.remove('show');
-        typeWriterText(texts[currentIndex], () => {
-          continuePrompt.classList.add('show');
-        });
-        currentIndex++;
+      if (i < text.length) {
+        const charSpan = document.createElement('span');
+        charSpan.textContent = text.charAt(i);
+        paragraph.insertBefore(charSpan, cursor);
+        i++;
+        setTimeout(typeNextChar, speed);
       } else {
-       const sceneContent = document.querySelector('.scene-content');
-       const scene2 = document.getElementById('scene2');
+        fxAudio.pause();
+        cursor.remove();
+        if (callback) callback();
+      }
+    }
 
-       continuePrompt.classList.remove('show');
+    typeNextChar();
+  }
 
-       sceneContent.classList.add('fade-out');
+  function showNextText() {
+    if (currentIndex < texts.length) {
+      continuePrompt.classList.remove('show');
+      typeWriterText(texts[currentIndex], () => {
+        continuePrompt.classList.add('show');
+      });
+      currentIndex++;
+    } else {
+      const sceneContent = document.querySelector('.scene-content');
+      const scene2 = document.getElementById('scene2');
 
-       setTimeout (() => {
+      continuePrompt.classList.remove('show');
+      sceneContent.classList.add('fade-out');
+
+      setTimeout(() => {
         sceneContent.style.display = 'none';
         scene2.style.display = 'flex';
         scene2.style.opacity = '1';
-       }, 1000);
+      }, 1000);
     }
+  }
 
-    // Show the first paragraph when page loads
-    showNextText();
+  // ✅ This must be outside showNextText
+  continuePrompt.addEventListener('click', showNextText);
 
-    // Next paragraphs appear on click
-    continuePrompt.addEventListener('click', showNextText);
-  });
+  // ✅ Start the first text
+  showNextText();
+});
 </script>
 
 </body>
