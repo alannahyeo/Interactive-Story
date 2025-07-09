@@ -10,6 +10,7 @@ body {
   margin: 0;
   font-family: 'Syne Mono', monospace, sans-serif;
   color: white;
+  overflow: hidden;
 }
 
 .center-box {
@@ -20,9 +21,7 @@ body {
   text-align: center;
   width: 60%;
   max-width: 600px;
-  min-height: 400px;
   box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
-  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -135,7 +134,8 @@ body {
   justify-content: center;
   align-items: flex-start;
   padding-top: 0px;
-  margin-top: -20px;
+  margin-top: -10px;
+  margin-bottom: 0;
   max-width: 50%;
   overflow: hidden;
   height: 100%;
