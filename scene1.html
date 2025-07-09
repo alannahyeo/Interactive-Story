@@ -13,7 +13,6 @@
 <body class="fade-in">
   <div class="center-box">
   <div class="scene-content">
-    <h2 class="sub-title fade-in-title">Decipher The Suspicious Posts</h2>
     <h1 class="top-text">
       <span class="investigation-text">Investigation 1:</span>
       <span class="social-media-text">Eli's Social Media Feed</span>
@@ -28,6 +27,10 @@
              onerror="this.style.display='none'; console.error('Image not found')"/>
       </div>
     </div>
+  </div>
+
+  <div id="scene2" class="scene-content" style="display:none; opacity:0;">
+    <h1 class="final-title">Decipher The Suspicious Posts</h1>
   </div>
 </div>
 
@@ -97,9 +100,22 @@
         });
         currentIndex++;
       } else {
-        const sceneContent = document.querySelector('.scene-content');
-        continuePrompt.classList.remove('show');
-        sceneContent.classList.add('fade-out');
+       const sceneContent = document.querySelector('.scene-content');
+       const scene2 = document.getElementById('scene2');
+
+       continuePrompt.classList.remove('show');
+
+       sceneContent.classList.add('fade-out');
+
+       setTimeout(() => {
+        sceneContent.style.display = 'none';
+
+        scene2.style.display = 'block';
+        
+        setTimeout(() => {
+          scene2.style.opacity = '1';
+        }, 50);
+       }, 1000);
       }
     }
 
