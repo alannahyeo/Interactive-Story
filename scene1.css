@@ -193,3 +193,29 @@ body {
   opacity: 0;
   animation: fadeInOnly 2s ease-in-out 1s forwards;
 }
+
+.glow-underline {
+  position: relative;
+  color: white;
+}
+
+.glow-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  background: red;
+  box-shadow: 0 0 6px red, 0 0 12px red;
+  animation: glowUnderlinePulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glowUnderlinePulse {
+  from {
+    box-shadow: 0 0 4px red;
+  }
+  to {
+    box-shadow: 0 0 12px red;
+  }
+}
