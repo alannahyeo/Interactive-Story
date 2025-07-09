@@ -69,11 +69,12 @@ body {
   display: block;
   line-height: 2;
   text-align: left;
-  min-height: 10em;
+  min-height: 8em;
   width: 100%;
-  padding: 0 1rem;
+  padding: 1rem;
   font-size: 1.1rem;
-  overflow-y: hidden;
+  overflow-y: auto;
+  max-height: 12em;
 }
 
 .typewriter-cursor {
@@ -133,7 +134,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 10px;
+  padding-top: 0px;
+  margin-top: -20px;
   max-width: 50%;
   overflow: hidden;
   height: 100%;
