@@ -14,7 +14,7 @@ function startStory() {
                 localStorage.setItem('audioPlaying', !audio.paused);
             }
 
-            document.body.classList.add('fade-out');
+            document.querySelector('.box-content').classList.add('fade-out');
 
             setTimeout (() => {
                 frame.src = 'scene1.html';
