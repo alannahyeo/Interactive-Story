@@ -13,18 +13,21 @@ body {
   overflow: hidden;
 }
 
-.center-box {
-  background-color: black;
-  border: 2px solid black;
-  border-radius: 20px;
-  padding: 30px 50px;
-  text-align: center;
-  width: 80%;
-  max-width: 900px;
-  box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.center-box{
+    background-color: black;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px 60px 40px 60px;
+    font-family: Syne Mono, monospace;
+    text-align: center;
+    color: white;
+    width: 60%;
+    max-width: 600px;
+    min-height: 400px;
+    box-shadow: 0 0 60px rgba(255,255,255,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .scene-wrapper {
@@ -173,18 +176,11 @@ body {
   text-align: center;
   text-shadow: 0 0 10px red;
   margin: 0;
-  animation: fadeBlurIn 3s ease-in-out infinite alternate;
+  opacity: 0;
+  animation: fadeInOnly 2s ease-in-out forwards;
 }
 
-@keyframes fadeBlurIn {
-  0% {
-    opacity: 0;
-    filter: blur(8px);
-    transform: scale(1.1);
-  }
-  100% {
-    opacity: 1;
-    filter: blur(8px);
-    transform: scale(1);
-  }
+@keyframes fadeInOnly {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
