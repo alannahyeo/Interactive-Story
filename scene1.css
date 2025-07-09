@@ -18,8 +18,9 @@ body {
   border-radius: 20px;
   padding: 20px 60px;
   text-align: center;
-  width: 600px;
-  height: 400px;
+  width: 60%;
+  max-width: 600px;
+  min-height: 400px;
   box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
   overflow: hidden;
   position: relative;
@@ -193,17 +194,14 @@ body {
   text-align: center;
   text-shadow: 0 0 10px red;
   margin: 0;
-  animation: fadeInTitle 2s ease-in forwards;
+  animation: fadeBlurIn 3s ease-in-out infinite alternate;
 }
 
-@keyframes fadeInTitle {
-  from {
+@keyframes fadeBlurIn {
+  0% {
     opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    filter: blur(8px);
+    transform: scale(1);
   }
 }
 
@@ -220,6 +218,10 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+#scene2 h1.final-title {
+  margin: auto;
 }
 
 
