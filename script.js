@@ -25,3 +25,5 @@ function startStory() {
         window.location.href = 'scene1.html';
     }
 }
+
+window.startStory = startStory;
