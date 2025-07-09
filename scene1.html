@@ -12,27 +12,30 @@
 </head>
 <body class="fade-in">
   <div class="center-box">
-  <div class="scene-content">
-    <h1 class="top-text">
-      <span class="investigation-text">Investigation 1:</span>
-      <span class="social-media-text">Eli's Social Media Feed</span>
-    </h1>
-    <div class="content-split">
-      <div class="left-text">
-        <div id="typewriter-text"></div>
-        <p id="continuePrompt" class="continue-prompt">Press To Continue</p>
-      </div>
-      <div class="right-empty">
-        <img src="eli-missing-poster.png" alt="Eli's Social Media Feed" class="right-image"
-             onerror="this.style.display='none'; console.error('Image not found')"/>
+  <div class="scene-wrapper">
+    <div class="scene-content" id="scene1">
+      <h1 class="top-text">
+        <span class="investigation-text">Investigation 1:</span>
+        <span class="social-media-text">Eli's Social Media Feed</span>
+      </h1>
+      <div class="content-split">
+        <div class="left-text">
+          <div id="typewriter-text"></div>
+          <p id="continuePrompt" class="continue-prompt">Press To Continue</p>
+        </div>
+        <div class="right-empty">
+          <img src="eli-missing-poster.png" alt="Eli's Social Media Feed" class="right-image"
+               onerror="this.style.display='none'; console.error('Image not found')"/>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="scene2" class="scene-content" style="display:none; opacity:0;">
-    <h1 class="final-title">Decipher The Suspicious Posts</h1>
+    <div id="scene2" class="scene-content" style="display:none; opacity:0;">
+      <h1 class="final-title">Decipher The Suspicious Posts</h1>
+    </div>
   </div>
 </div>
+
 
 
   <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto" loop></audio>
