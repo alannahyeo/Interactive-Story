@@ -107,16 +107,11 @@
 
        sceneContent.classList.add('fade-out');
 
-       setTimeout(() => {
+       setTimeout (() => {
         sceneContent.style.display = 'none';
-
-        scene2.style.display = 'block';
-        
-        setTimeout(() => {
-          scene2.style.opacity = '1';
-        }, 50);
+        scene2.style.display = 'flex';
+        scene2.style.opacity = '1';
        }, 1000);
-      }
     }
 
     // Show the first paragraph when page loads
