@@ -97,3 +97,8 @@ body.fade-out{
     opacity: 0;
     transition: opacity 1s ease-out;
 }
+
+.box-content.fade-out {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
