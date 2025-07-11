@@ -26,4 +26,13 @@ function startStory() {
     }
 }
 
+document.querySelectorAll('.insta-post').forEach(post => {
+    post.addEventListener('click', () => {
+        const postId = post.getAttribute('data-id');
+       console.log(`Post ${postId} clicked`);
+
+       post.classList.toggle('suspicious');
+    });
+});
+
 window.startStory = startStory;
