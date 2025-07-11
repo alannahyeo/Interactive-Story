@@ -197,14 +197,17 @@ body {
 .instagram-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 16px;
   padding: 1rem;
-  max-width: 600px;
+  width: 100%;
+  max-width: 500px;
   margin: 0 auto;
+  justify-items: center;
 }
 
 .insta-post {
-  width: 100;
+  width: 100%;
+  max-width: 250px;
   height: auto;
   border-radius: 10px;
   cursor: pointer;
