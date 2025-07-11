@@ -254,3 +254,21 @@ body {
 .toast-show {
   opacity: 1;
 }
+
+.continue-button {
+  margin-top: 1.5rem;
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  font-family: 'Syne Mono', monospace;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px red;
+  transition: background-color 0.3s ease;
+}
+
+.continue-button:hover{
+  background-color: #cc0000;
+}
