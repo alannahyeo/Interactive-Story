@@ -21,9 +21,9 @@ body {
   font-family: Syne Mono, monospace;
   text-align: center;
   color: white;
-  width: 80%;
-  max-width: 800px;
-  min-height: 400px;
+  width: 60%;
+  max-width: 600px;
+   min-height: 400px;
   box-shadow: 0 0 60px rgba(255,255,255,0.4);
   display: flex;
   flex-direction: column;
