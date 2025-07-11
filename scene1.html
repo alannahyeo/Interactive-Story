@@ -127,7 +127,7 @@
             document.querySelectorAll('.insta-post').forEach(post => {
               post.addEventListener('click', () => {
                 const postId = post.getAttribute('data-id');
-                const suspiciousIds = ['2', '4', '6'];
+                const suspiciousIds = ['5', '4', '6'];
                 const isSuspicious = suspiciousIds.includes(postId);
 
                 post.classList.toggle('suspicious');
