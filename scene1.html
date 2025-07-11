@@ -7,12 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="scene1.css?v=14" />
+  <link rel="stylesheet" href="scene1.css?v=15" />
 </head>
 <body class="fade-in">
   <div class="center-box">
     <div class="scene-wrapper">
-      <!-- Scene 1 -->
       <div class="scene-content" id="scene1">
         <h1 class="top-text">
           <span class="investigation-text">Investigation 1:</span>
@@ -30,7 +29,6 @@
         </div>
       </div>
 
-      <!-- Scene 2 -->
       <div id="scene2" class="scene-content" style="display:none; opacity:0;">
         <h1 class="final-title">Decipher The Suspicious Posts</h1>
         <p class="final-subtitle">Click on all the posts that seem suspicious</p>
@@ -46,25 +44,25 @@
     </div>
   </div>
 
-  <!-- Toast -->
   <div id="toast" class="toast"></div>
 
-  <!-- Typewriter Audio -->
-  <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto" loop></audio>
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
-  <!-- Script -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const fxAudio = document.getElementById('fxAudio');
-      const fxContent = new (window.AudioContext || window.webkitAudioContext) ();
-      let fxBuffer = null;
       const textElement = document.getElementById('typewriter-text');
       const continuePrompt = document.getElementById('continuePrompt');
-      fetch(fxAudio.src)
-        .then(response => response.arrayBuffet())
-        .then(data => fxContext.decodeAudioData(data))
-        .then(decoded => fxBuffer = decoded);
+      const clickSound = document.getElementById('clickSound');
+
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      let typeBuffer = null;
+
+      // Preload typewriter audio
+      fetch('typewriter-audio.mp3')
+        .then(response => response.arrayBuffer())
+        .then(data => audioContext.decodeAudioData(data))
+        .then(decoded => typeBuffer = decoded)
+        .catch(err => console.warn("Audio preload failed", err));
 
       const texts = [
         "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
@@ -76,34 +74,24 @@
 
       function typeWriterText(text, callback) {
         textElement.innerHTML = '';
-
         const paragraph = document.createElement('p');
         paragraph.style.margin = '0 0 1rem 0';
-        textElement.appendChild(paragraph);
 
         const cursor = document.createElement('span');
         cursor.className = 'typewriter-cursor';
         paragraph.appendChild(cursor);
+        textElement.appendChild(paragraph);
 
         let i = 0;
         const speed = 30;
 
-        try {
-          if (fxBuffer) {
-            const source = fxContext.createBufferSource();
-            source.buffet = fxBuffer;
-            source.loop = true;
-            source.connect(fxContext.destination);
-            source.start(0);
-            fxAudio._source = source;
-          if (fxAudio._source) {
-            fxAudio._source.stop();
-            fxAudio._source.disconnect();
-            fxAudio._source = null;
-          }
-          }
-        } catch (err) {
-          console.warn("Audio error:", err);
+        let source;
+        if (typeBuffer) {
+          source = audioContext.createBufferSource();
+          source.buffer = typeBuffer;
+          source.loop = true;
+          source.connect(audioContext.destination);
+          source.start();
         }
 
         function typeNextChar() {
@@ -114,7 +102,10 @@
             i++;
             setTimeout(typeNextChar, speed);
           } else {
-            fxAudio.pause();
+            if (source) {
+              source.stop();
+              source.disconnect();
+            }
             cursor.remove();
             if (callback) callback();
           }
@@ -124,8 +115,8 @@
       }
 
       function showNextText() {
-        if (fxContent.state === 'suspended') {
-          fxContent.resume();
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
         }
 
         if (currentIndex < texts.length) {
@@ -145,15 +136,14 @@
             scene2.style.display = 'flex';
             scene2.style.opacity = '1';
 
-            // Add click listeners for posts
+            // Add click listeners to posts
             document.querySelectorAll('.insta-post').forEach(post => {
               post.addEventListener('click', () => {
-                const clickSound = document.getElementById('clickSound');
                 clickSound.currentTime = 0;
-                clickSound.play().catch(e => console.warn("Click sound error:", e));
+                clickSound.play().catch(() => {});
 
                 const postId = post.getAttribute('data-id');
-                const suspiciousIds = ['5', '4', '6'];
+                const suspiciousIds = ['4', '5', '6'];
                 const isSuspicious = suspiciousIds.includes(postId);
 
                 post.classList.toggle('suspicious');
@@ -176,11 +166,10 @@
         }, 2000);
       }
 
-      // Initialize first message
       continuePrompt.addEventListener('click', showNextText);
       showNextText();
 
-      // Shuffle posts once
+      // Shuffle post order
       const postGrid = document.getElementById("postGrid");
       if (postGrid) {
         const posts = Array.from(postGrid.children);
