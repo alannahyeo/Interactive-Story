@@ -233,3 +233,24 @@ body {
     max-width: 120px;
   }
 }
+
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  color: white;
+  border: 2px solid red;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px red;
+  font-family: 'Syne Mono', monospace;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.toast-show {
+  opacity: 1;
+}
