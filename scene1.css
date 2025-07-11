@@ -23,17 +23,20 @@ body {
   color: white;
   width: 60%;
   max-width: 600px;
-  height: 400px; /* lock size */
+  min-height: 400px;
   box-shadow: 0 0 60px rgba(255,255,255,0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
   box-sizing: border-box;
+
   opacity: 0;
+  animation: fadeInOnly 1s ease forwards;
 }
 
-@keyframes fadeInBox {
+
+@keyframes fadeInOnly {
   from {opacity: 0;}
   to {opacity: 1;}
 }
