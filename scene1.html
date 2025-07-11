@@ -7,11 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="scene1.css?v=13" />
+  <link rel="stylesheet" href="scene1.css?v=14" />
 </head>
 <body class="fade-in">
   <div class="center-box">
     <div class="scene-wrapper">
+      <!-- Scene 1 -->
       <div class="scene-content" id="scene1">
         <h1 class="top-text">
           <span class="investigation-text">Investigation 1:</span>
@@ -24,11 +25,12 @@
           </div>
           <div class="right-empty">
             <img src="eli-missing-poster-final.png?v=1" alt="Eli's Poster" class="right-image"
-                 onerror="this.style.display='none'; console.error('Image not found')" />
+              onerror="this.style.display='none'; console.error('Image not found')" />
           </div>
         </div>
       </div>
 
+      <!-- Scene 2 -->
       <div id="scene2" class="scene-content" style="display:none; opacity:0;">
         <h1 class="final-title">Decipher The Suspicious Posts</h1>
         <p class="final-subtitle">Click on all the posts that seem suspicious</p>
@@ -39,12 +41,18 @@
           <img src="post4.png" class="insta-post" data-id="4">
           <img src="post5.png" class="insta-post" data-id="5">
           <img src="post6.png" class="insta-post" data-id="6">
-         </div>
         </div>
       </div>
     </div>
+  </div>
 
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Typewriter Audio -->
   <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto" loop></audio>
+
+  <!-- Script -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const fxAudio = document.getElementById('fxAudio');
@@ -64,17 +72,21 @@
 
         const paragraph = document.createElement('p');
         paragraph.style.margin = '0 0 1rem 0';
+        textElement.appendChild(paragraph);
 
         const cursor = document.createElement('span');
         cursor.className = 'typewriter-cursor';
         paragraph.appendChild(cursor);
-        textElement.appendChild(paragraph);
 
         let i = 0;
         const speed = 30;
 
-        fxAudio.currentTime = 0;
-        fxAudio.play().catch(e => console.warn("Audio error:", e));
+        try {
+          fxAudio.currentTime = 0;
+          fxAudio.play().catch(e => console.warn("Audio play failed (user interaction required):", e));
+        } catch (err) {
+          console.warn("Audio error:", err);
+        }
 
         function typeNextChar() {
           if (i < text.length) {
@@ -110,31 +122,49 @@
             scene1.style.display = 'none';
             scene2.style.display = 'flex';
             scene2.style.opacity = '1';
+
+            // Add click listeners for posts
+            document.querySelectorAll('.insta-post').forEach(post => {
+              post.addEventListener('click', () => {
+                const postId = post.getAttribute('data-id');
+                const suspiciousIds = ['2', '4', '6'];
+                const isSuspicious = suspiciousIds.includes(postId);
+
+                post.classList.toggle('suspicious');
+                showToast(isSuspicious
+                  ? "✅ Good eye! This post is suspicious."
+                  : "❌ Hmm... this one doesn't seem suspicious."
+                );
+              });
+            });
           }, 1000);
         }
       }
 
+      function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('toast-show');
+        setTimeout(() => {
+          toast.classList.remove('toast-show');
+        }, 2000);
+      }
+
+      // Initialize first message
       continuePrompt.addEventListener('click', showNextText);
       showNextText();
-    });
-  </script>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
+      // Shuffle posts once
       const postGrid = document.getElementById("postGrid");
-      const posts = Array.from(postGrid.children);
-
-      for (let i = posts.length -1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i +1));
-        [posts[i], posts[j]] = [posts[j], posts[i]];
-      }
+      if (postGrid) {
+        const posts = Array.from(postGrid.children);
+        for (let i = posts.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [posts[i], posts[j]] = [posts[j], posts[i]];
+        }
         posts.forEach(post => postGrid.appendChild(post));
-    
+      }
     });
   </script>
-
-  <div id="toast" class="toast"></div>
-  <script src="script.js?v=5"></script>
-
 </body>
 </html>
