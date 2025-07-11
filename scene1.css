@@ -6,31 +6,27 @@ body {
   margin: 0;
   font-family: 'Syne Mono', monospace, sans-serif;
   color: white;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-.center-box{
-    background-color: black;
-    border: 2px solid black;
-    border-radius: 20px;
-    padding: 20px 60px 40px 60px;
-    font-family: Syne Mono, monospace;
-    text-align: center;
-    color: white;
-    width: 600px;
-    max-width: 600px;
-    min-height: 400px;
-    box-shadow: 0 0 60px rgba(255,255,255,0.4);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-    box-sizing: border-box;
+.center-box {
+  width: 800px;
+  height: 500px;
+  background-color: black;
+  border-radius: 20px;
+  padding: 40px 60px;
+  box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
+
 
 .scene-wrapper {
   width: 100%;
