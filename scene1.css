@@ -30,9 +30,7 @@ body {
   align-items: center;
   overflow: hidden;
   box-sizing: border-box;
-
   opacity: 0;
-  animation: fadeInBox 1.5s ease-out forwards;
 }
 
 @keyframes fadeInBox {
