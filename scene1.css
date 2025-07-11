@@ -21,8 +21,8 @@ body {
   font-family: Syne Mono, monospace;
   text-align: center;
   color: white;
-  width: 60%;
-  max-width: 600px;
+  width: 80%;
+  max-width: 800px;
   min-height: 400px;
   box-shadow: 0 0 60px rgba(255,255,255,0.4);
   display: flex;
@@ -30,7 +30,6 @@ body {
   align-items: center;
   overflow: hidden;
   box-sizing: border-box;
-
   opacity: 0;
   animation: fadeInOnly 1s ease forwards;
 }
