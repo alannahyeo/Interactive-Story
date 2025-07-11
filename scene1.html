@@ -33,6 +33,7 @@
         <h1 class="final-title">Decipher The Suspicious Posts</h1>
         <p class="final-subtitle">Click on all the posts that seem suspicious</p>
         <div class="instagram-grid" id="postGrid">
+          <button id="continueBtn" class="continue-button" style="display: none;">Continue</button>
           <img src="post1.png" class="insta-post" data-id="1">
           <img src="post2.png" class="insta-post" data-id="2">
           <img src="post3.png" class="insta-post" data-id="3">
@@ -127,21 +128,34 @@
         scene2.style.opacity = '1';
 
         document.querySelectorAll('.insta-post').forEach(post => {
-          post.addEventListener('click', () => {
-            clickSound.currentTime = 0;
-            clickSound.play().catch(() => {});
+  post.addEventListener('click', () => {
+    clickSound.currentTime = 0;
+    clickSound.play().catch(() => {});
 
-            const postId = post.getAttribute('data-id');
-            const suspiciousIds = ['4', '5', '6'];
-            const isSuspicious = suspiciousIds.includes(postId);
+    const postId = post.getAttribute('data-id');
+    const suspiciousIds = ['4', '5', '6'];
+    const isSuspicious = suspiciousIds.includes(postId);
 
-            post.classList.toggle('suspicious');
-            showToast(isSuspicious
-              ? "✅ Good eye! This post is suspicious."
-              : "❌ Hmm... this one doesn't seem suspicious."
-            );
-          });
-        });
+    post.classList.toggle('suspicious');
+    showToast(isSuspicious
+      ? "✅ Good eye! This post is suspicious."
+      : "❌ Hmm... this one doesn't seem suspicious. Try again."
+    );
+
+    // Check if all suspicious posts are selected
+    const selected = Array.from(document.querySelectorAll('.insta-post.suspicious'))
+                          .map(p => p.getAttribute('data-id'));
+
+    const allFound = suspiciousIds.every(id => selected.includes(id));
+
+    if (allFound) {
+      document.getElementById('continueBtn').style.display = 'inline-block';
+    } else {
+      document.getElementById('continueBtn').style.display = 'none';
+    }
+  });
+});
+
       }, 1000);
     }
   }
