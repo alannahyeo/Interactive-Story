@@ -58,7 +58,7 @@
       let typeBuffer = null;
 
       // Preload typewriter audio
-      fetch('typewriter-audio.mp3')
+      fetch('typewriter-audio-final.mp3')
         .then(response => response.arrayBuffer())
         .then(data => audioContext.decodeAudioData(data))
         .then(decoded => typeBuffer = decoded)
