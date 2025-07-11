@@ -29,10 +29,26 @@ function startStory() {
 document.querySelectorAll('.insta-post').forEach(post => {
     post.addEventListener('click', () => {
         const postId = post.getAttribute('data-id');
-       console.log(`Post ${postId} clicked`);
 
-       post.classList.toggle('suspicious');
+        const suspiciousIds = ['2', '4', '6'];
+        const isSuspicious = suspiciousIds.includes(postId);
+
+        post.classList.toggle('suspicious');
+
+        if (isSuspicious) {
+            showToast("✅ Good eye! This post is suspicious.");
+        } else {
+            showToast("❌ Hmm... this one doesn't seem suspicious.");
+        }
     });
 });
 
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2000);
+}
 window.startStory = startStory;
