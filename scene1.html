@@ -49,142 +49,149 @@
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const textElement = document.getElementById('typewriter-text');
-      const continuePrompt = document.getElementById('continuePrompt');
-      const clickSound = document.getElementById('clickSound');
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      let typeBuffer = null;
+   document.addEventListener('DOMContentLoaded', () => {
+  const textElement = document.getElementById('typewriter-text');
+  const continuePrompt = document.getElementById('continuePrompt');
+  const clickSound = document.getElementById('clickSound');
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  let typeBuffer = null;
 
-      const texts = [
-        "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
-        "Authorities are scrambling to trace his digital footprint, but clues are vanishing as quickly as they appear.",
-        "You've been tasked to dig deeper - to uncover the truth behind his disappearance and decode the feed."
-      ];
-      let currentIndex = 0;
+  const texts = [
+    "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
+    "Authorities are scrambling to trace his digital footprint, but clues are vanishing as quickly as they appear.",
+    "You've been tasked to dig deeper - to uncover the truth behind his disappearance and decode the feed."
+  ];
+  let currentIndex = 0;
 
-      function typeWriterText(text, callback) {
-        textElement.innerHTML = '';
-        const paragraph = document.createElement('p');
-        paragraph.style.margin = '0 0 1rem 0';
-        const cursor = document.createElement('span');
-        cursor.className = 'typewriter-cursor';
-        paragraph.appendChild(cursor);
-        textElement.appendChild(paragraph);
+  function typeWriterText(text, callback) {
+    textElement.innerHTML = '';
+    const paragraph = document.createElement('p');
+    paragraph.style.margin = '0 0 1rem 0';
+    const cursor = document.createElement('span');
+    cursor.className = 'typewriter-cursor';
+    paragraph.appendChild(cursor);
+    textElement.appendChild(paragraph);
 
-        let i = 0;
-        const speed = 30;
-        let source;
+    let i = 0;
+    const speed = 30;
+    let source;
 
-        if (typeBuffer) {
-          source = audioContext.createBufferSource();
-          source.buffer = typeBuffer;
-          source.loop = true;
-          source.connect(audioContext.destination);
-          source.start();
+    if (typeBuffer) {
+      source = audioContext.createBufferSource();
+      source.buffer = typeBuffer;
+      source.loop = true;
+      source.connect(audioContext.destination);
+      source.start();
+    }
+
+    function typeNextChar() {
+      if (i < text.length) {
+        const charSpan = document.createElement('span');
+        charSpan.textContent = text.charAt(i);
+        paragraph.insertBefore(charSpan, cursor);
+        i++;
+        setTimeout(typeNextChar, speed);
+      } else {
+        if (source) {
+          source.stop();
+          source.disconnect();
         }
-
-        function typeNextChar() {
-          if (i < text.length) {
-            const charSpan = document.createElement('span');
-            charSpan.textContent = text.charAt(i);
-            paragraph.insertBefore(charSpan, cursor);
-            i++;
-            setTimeout(typeNextChar, speed);
-          } else {
-            if (source) {
-              source.stop();
-              source.disconnect();
-            }
-            cursor.remove();
-            if (callback) callback();
-          }
-        }
-
-        typeNextChar();
+        cursor.remove();
+        if (callback) callback();
       }
+    }
 
-      function showNextText() {
-        if (audioContext.state === 'suspended') {
-          audioContext.resume();
-        }
+    typeNextChar();
+  }
 
-        if (currentIndex < texts.length) {
-          continuePrompt.classList.remove('show');
-          typeWriterText(texts[currentIndex], () => {
-            continuePrompt.classList.add('show');
+  function showNextText() {
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+
+    if (currentIndex < texts.length) {
+      continuePrompt.classList.remove('show');
+      typeWriterText(texts[currentIndex], () => {
+        continuePrompt.classList.add('show');
+      });
+      currentIndex++;
+    } else {
+      const scene1 = document.getElementById('scene1');
+      const scene2 = document.getElementById('scene2');
+      continuePrompt.classList.remove('show');
+      scene1.classList.add('fade-out');
+
+      setTimeout(() => {
+        scene1.style.display = 'none';
+        scene2.style.display = 'flex';
+        scene2.style.opacity = '1';
+
+        document.querySelectorAll('.insta-post').forEach(post => {
+          post.addEventListener('click', () => {
+            clickSound.currentTime = 0;
+            clickSound.play().catch(() => {});
+
+            const postId = post.getAttribute('data-id');
+            const suspiciousIds = ['4', '5', '6'];
+            const isSuspicious = suspiciousIds.includes(postId);
+
+            post.classList.toggle('suspicious');
+            showToast(isSuspicious
+              ? "✅ Good eye! This post is suspicious."
+              : "❌ Hmm... this one doesn't seem suspicious."
+            );
           });
-          currentIndex++;
-        } else {
-          const scene1 = document.getElementById('scene1');
-          const scene2 = document.getElementById('scene2');
-          continuePrompt.classList.remove('show');
-          scene1.classList.add('fade-out');
+        });
+      }, 1000);
+    }
+  }
 
-          setTimeout(() => {
-            scene1.style.display = 'none';
-            scene2.style.display = 'flex';
-            scene2.style.opacity = '1';
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('toast-show');
+    setTimeout(() => {
+      toast.classList.remove('toast-show');
+    }, 2000);
+  }
 
-            document.querySelectorAll('.insta-post').forEach(post => {
-              post.addEventListener('click', () => {
-                clickSound.currentTime = 0;
-                clickSound.play().catch(() => {});
+  // Unlock audio on any user interaction
+  document.body.addEventListener('click', () => {
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+  }, { once: true });
 
-                const postId = post.getAttribute('data-id');
-                const suspiciousIds = ['4', '5', '6'];
-                const isSuspicious = suspiciousIds.includes(postId);
-
-                post.classList.toggle('suspicious');
-                showToast(isSuspicious
-                  ? "✅ Good eye! This post is suspicious."
-                  : "❌ Hmm... this one doesn't seem suspicious."
-                );
-              });
-            });
-          }, 1000);
-        }
-      }
-
-      function showToast(message) {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.classList.add('toast-show');
-        setTimeout(() => {
-          toast.classList.remove('toast-show');
-        }, 2000);
-      }
-
-      // Unlock audio on first user interaction
-      document.body.addEventListener('click', () => {
-        if (audioContext.state === 'suspended') {
-          audioContext.resume();
-        }
-      }, { once: true });
-
-      // Preload typewriter audio and start first scene
-      fetch('typewriter-audio-final.mp3')
-        .then(response => response.arrayBuffer())
-        .then(data => audioContext.decodeAudioData(data))
-        .then(decoded => {
-          typeBuffer = decoded;
-          showNextText(); // begin typewriter once audio is ready
-        })
-        .catch(err => console.warn("Audio preload failed", err));
-
-      continuePrompt.addEventListener('click', showNextText);
-
-      // Shuffle Instagram posts
-      const postGrid = document.getElementById("postGrid");
-      if (postGrid) {
-        const posts = Array.from(postGrid.children);
-        for (let i = posts.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [posts[i], posts[j]] = [posts[j], posts[i]];
-        }
-        posts.forEach(post => postGrid.appendChild(post));
-      }
+  // Fetch and decode audio, THEN show first text
+  fetch('typewriter-audio-final.mp3')
+    .then(response => response.arrayBuffer())
+    .then(data => audioContext.decodeAudioData(data))
+    .then(decoded => {
+      typeBuffer = decoded;
+      // Wait a few ms to ensure AudioContext can play right after decoding
+      setTimeout(() => {
+        showNextText(); // Show first message automatically
+      }, 100);
+    })
+    .catch(err => {
+      console.warn("Audio preload failed", err);
+      showNextText(); // fallback if audio doesn't load
     });
+
+  continuePrompt.addEventListener('click', showNextText);
+
+  // Shuffle posts
+  const postGrid = document.getElementById("postGrid");
+  if (postGrid) {
+    const posts = Array.from(postGrid.children);
+    for (let i = posts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [posts[i], posts[j]] = [posts[j], posts[i]];
+    }
+    posts.forEach(post => postGrid.appendChild(post));
+  }
+});
+
   </script>
 </body>
 </html>
