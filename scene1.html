@@ -118,5 +118,19 @@
       showNextText();
     });
   </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const postGrid = document.getElementById("postGrid");
+      const posts = Array.from(postGrid.children);
+
+      for (let i = posts.length -1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i +1));
+        [posts[i], posts[j]] = [posts[j], posts[i]];
+      }
+        posts.forEach(post => postGrid.appendChild(post));
+    
+    });
+  </script>
 </body>
 </html>
