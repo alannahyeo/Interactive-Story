@@ -11,25 +11,25 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  box-sizing: border-box;
 }
 
-.center-box {
-  background-color: black;
-  border: 2px solid black;
-  border-radius: 20px;
-  padding: 20px 60px 40px 60px;
-  text-align: center;
-  color: white;
-  width: 600px;
-  max-width: 600px;
-  min-height: 400px;
-  box-shadow: 0 0 60px rgba(255,255,255,0.4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  box-sizing: border-box;
+.center-box{
+    background-color: black;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px 60px 40px 60px;
+    font-family: Syne Mono, monospace;
+    text-align: center;
+    color: white;
+    width: 600px;
+    max-width: 600px;
+    min-height: 400px;
+    box-shadow: 0 0 60px rgba(255,255,255,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .scene-wrapper {
@@ -64,8 +64,6 @@ body {
   justify-content: space-between;
   gap: 2rem;
   margin-top: 2rem;
-  align-items: flex-start;
-  height: 300px; /* Fixed height for stability */
 }
 
 .left-text {
@@ -76,15 +74,13 @@ body {
   align-items: center;
   padding: 1rem;
   gap: 1rem;
-  height: 100%;
-  overflow-y: auto;
-  box-sizing: border-box;
 }
 
 #typewriter-text {
   white-space: pre-wrap;
   word-break: break-word;
   line-height: 1.8;
+  min-height: 10em;
   width: 100%;
   font-size: 1.1rem;
 }
@@ -137,14 +133,12 @@ body {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100%;
-  box-sizing: border-box;
+  align-items: flex-start;
 }
 
 .right-image {
-  width: auto;
-  height: 250px;
+  max-width: 100%;
+  max-height: 250px;
   object-fit: contain;
   border-radius: 10px;
   box-shadow: 0 0 6px rgba(255, 0, 0, 0.4), 0 0 12px rgba(255, 0, 0, 0.3);
@@ -196,7 +190,7 @@ body {
   to {opacity: 1;}
 }
 
-.final-subtitle {
+.final-subtitle{
   font-size: 18px;
   color: white;
   font-family: 'Syne Mono', monospace;
@@ -284,6 +278,6 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.continue-button:hover {
+.continue-button:hover{
   background-color: #cc0000;
 }
