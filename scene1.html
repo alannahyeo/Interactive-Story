@@ -149,9 +149,9 @@
     const allFound = suspiciousIds.every(id => selected.includes(id));
 
     if (allFound) {
-      document.getElementById('continueBtn').classList.add('show');
+      document.getElementById('continueBtn').style.display = 'inline-block';
     } else {
-      document.getElementById('continueBtn').classList.remove('show');
+      document.getElementById('continueBtn').style.display = 'none';
     }
   });
 });
