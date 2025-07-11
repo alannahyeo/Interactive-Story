@@ -51,6 +51,7 @@
 
   <!-- Typewriter Audio -->
   <audio id="fxAudio" src="typewriter-audio.mp3" preload="auto" loop></audio>
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
   <!-- Script -->
   <script>
@@ -126,6 +127,10 @@
             // Add click listeners for posts
             document.querySelectorAll('.insta-post').forEach(post => {
               post.addEventListener('click', () => {
+                const clickSound = document.getElementById('clickSound');
+                clickSound.currentTime = 0;
+                clickSound.play().catch(e => console.warn("Click sound error:", e));
+                
                 const postId = post.getAttribute('data-id');
                 const suspiciousIds = ['5', '4', '6'];
                 const isSuspicious = suspiciousIds.includes(postId);
