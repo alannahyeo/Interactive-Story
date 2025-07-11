@@ -215,12 +215,8 @@ body {
   gap: 12px;
   padding: 0.5rem;
   width: 100%;
-  max-width: 100%;
-  overflow: hidden;
   justify-items: center;
-  box-sizing: border-box;
-  max-height: 250px;
-  overflow-y: auto;
+  margin-bottom: 20px;
 }
 
 .insta-post {
