@@ -110,9 +110,30 @@
             scene1.style.display = 'none';
             scene2.style.display = 'flex';
             scene2.style.opacity = '1';
+
+            document.querySelectorAll('.insta-post').forEach(post => {
+              post.addEventListener('click', () => {
+                const postId = post.getAttribute('data-id');
+                const suspiciousIds = ['2', '4', '6'];
+                const isSuspicious = suspiciousIds.includes(postId);
+
+                post.classList.toggle('suspicious');
+                showToast(isSuspicious
+                 ? "✅ Good eye! This post is suspicious."
+        : "❌ Hmm... this one doesn't seem suspicious." 
+                );
+              });
+            });
           }, 1000);
-        }
-      }
+
+          function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('toast-show');
+            setTimeout(() => {
+              toast.classList.remove('toast-show');
+            }, 2000);
+          }
 
       continuePrompt.addEventListener('click', showNextText);
       showNextText();
