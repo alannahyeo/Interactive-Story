@@ -57,8 +57,14 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const fxAudio = document.getElementById('fxAudio');
+      const fxContent = new (window.AudioContext || window.webkitAudioContext) ();
+      let fxBuffer = null;
       const textElement = document.getElementById('typewriter-text');
       const continuePrompt = document.getElementById('continuePrompt');
+      fetch(fxAudio.src)
+        .then(response => response.arrayBuffet())
+        .then(data => fxContext.decodeAudioData(data))
+        .then(decoded => fxBuffer = decoded);
 
       const texts = [
         "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
@@ -83,8 +89,19 @@
         const speed = 30;
 
         try {
-          fxAudio.currentTime = 0;
-          fxAudio.play().catch(e => console.warn("Audio play failed (user interaction required):", e));
+          if (fxBuffer) {
+            const source = fxContext.createBufferSource();
+            source.buffet = fxBuffer;
+            source.loop = true;
+            source.connect(fxContext.destination);
+            source.start(0);
+            fxAudio._source = source;
+          if (fxAudio._source) {
+            fxAudio._source.stop();
+            fxAudio._source.disconnect();
+            fxAudio._source = null;
+          }
+          }
         } catch (err) {
           console.warn("Audio error:", err);
         }
@@ -107,6 +124,10 @@
       }
 
       function showNextText() {
+        if (fxContent.state === 'suspended') {
+          fxContent.resume();
+        }
+
         if (currentIndex < texts.length) {
           continuePrompt.classList.remove('show');
           typeWriterText(texts[currentIndex], () => {
@@ -130,7 +151,7 @@
                 const clickSound = document.getElementById('clickSound');
                 clickSound.currentTime = 0;
                 clickSound.play().catch(e => console.warn("Click sound error:", e));
-                
+
                 const postId = post.getAttribute('data-id');
                 const suspiciousIds = ['5', '4', '6'];
                 const isSuspicious = suspiciousIds.includes(postId);
