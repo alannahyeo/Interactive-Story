@@ -53,30 +53,20 @@
       const textElement = document.getElementById('typewriter-text');
       const continuePrompt = document.getElementById('continuePrompt');
       const clickSound = document.getElementById('clickSound');
-
       const audioContext = new (window.AudioContext || window.webkitAudioContext)();
       let typeBuffer = null;
-
-      // Preload typewriter audio
-      fetch('typewriter-audio-final.mp3')
-        .then(response => response.arrayBuffer())
-        .then(data => audioContext.decodeAudioData(data))
-        .then(decoded => typeBuffer = decoded)
-        .catch(err => console.warn("Audio preload failed", err));
 
       const texts = [
         "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
         "Authorities are scrambling to trace his digital footprint, but clues are vanishing as quickly as they appear.",
         "You've been tasked to dig deeper - to uncover the truth behind his disappearance and decode the feed."
       ];
-
       let currentIndex = 0;
 
       function typeWriterText(text, callback) {
         textElement.innerHTML = '';
         const paragraph = document.createElement('p');
         paragraph.style.margin = '0 0 1rem 0';
-
         const cursor = document.createElement('span');
         cursor.className = 'typewriter-cursor';
         paragraph.appendChild(cursor);
@@ -84,8 +74,8 @@
 
         let i = 0;
         const speed = 30;
-
         let source;
+
         if (typeBuffer) {
           source = audioContext.createBufferSource();
           source.buffer = typeBuffer;
@@ -136,7 +126,6 @@
             scene2.style.display = 'flex';
             scene2.style.opacity = '1';
 
-            // Add click listeners to posts
             document.querySelectorAll('.insta-post').forEach(post => {
               post.addEventListener('click', () => {
                 clickSound.currentTime = 0;
@@ -166,10 +155,26 @@
         }, 2000);
       }
 
-      continuePrompt.addEventListener('click', showNextText);
-      showNextText();
+      // Unlock audio on first user interaction
+      document.body.addEventListener('click', () => {
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+      }, { once: true });
 
-      // Shuffle post order
+      // Preload typewriter audio and start first scene
+      fetch('typewriter-audio-final.mp3')
+        .then(response => response.arrayBuffer())
+        .then(data => audioContext.decodeAudioData(data))
+        .then(decoded => {
+          typeBuffer = decoded;
+          showNextText(); // begin typewriter once audio is ready
+        })
+        .catch(err => console.warn("Audio preload failed", err));
+
+      continuePrompt.addEventListener('click', showNextText);
+
+      // Shuffle Instagram posts
       const postGrid = document.getElementById("postGrid");
       if (postGrid) {
         const posts = Array.from(postGrid.children);
