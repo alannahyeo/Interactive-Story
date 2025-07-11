@@ -21,13 +21,14 @@ body {
     font-family: Syne Mono, monospace;
     text-align: center;
     color: white;
-    width: 60%;
+    width: 100%;
     max-width: 600px;
     min-height: 400px;
     box-shadow: 0 0 60px rgba(255,255,255,0.4);
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden
 }
 
 .scene-wrapper {
@@ -197,17 +198,16 @@ body {
 .instagram-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  padding: 1rem;
+  gap: 12px;
+  padding: 0.5rem;
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
   justify-items: center;
+  box-sizing: border-box;
 }
 
 .insta-post {
   width: 100%;
-  max-width: 180px;
+  max-width: 150px;
   height: auto;
   border-radius: 10px;
   cursor: pointer;
@@ -222,4 +222,14 @@ body {
 .suspicious {
   outline: 3px solid red;
   box-shadow: 0 0 20px red;
+}
+
+@media (max-width: 600px) {
+  .instagram-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .insta-post {
+    max-width: 120px;
+  }
 }
