@@ -7,8 +7,11 @@
   font-family: 'Syne Mono', monospace;
   text-align: center;
   color: white;
-  width: 600px;        /* Fixed width (no %) */
-  height: 800px;       /* Fixed height (no min/max) */
+  width: 800px;        /* Fixed width (no %) */
+  min-height: 650px;       /* Fixed height (no min/max) */
+  max-width: 90%;
+  overflow-y: hidden;
+  padding: 30px 50px;
   box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
   display: flex;
   flex-direction: column;
