@@ -1,3 +1,4 @@
+scene1.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="scene1.css?v=2" />
+  <link rel="stylesheet" href="common.css?v=2">
 </head>
-
 <body>
   <div class="center-box">
     <div class="scene-wrapper">
@@ -33,16 +35,16 @@
         <h1 class="final-title">Decipher The Suspicious Posts</h1>
         <p class="final-subtitle">Click on all the posts that seem suspicious</p>
         <div class="instagram-grid" id="postGrid">
-          <img src="post1.png" class="insta-post" data-id="1" onerror="this.style.display='none'">
-          <img src="post2.png" class="insta-post" data-id="2" onerror="this.style.display='none'">
-          <img src="post3.png" class="insta-post" data-id="3" onerror="this.style.display='none'">
-          <img src="post4.png" class="insta-post" data-id="4" onerror="this.style.display='none'">
-          <img src="post5.png" class="insta-post" data-id="5" onerror="this.style.display='none'">
-          <img src="post6.png" class="insta-post" data-id="6" onerror="this.style.display='none'">
+          <button id="continueBtn" class="continue-button" style="display: none;">Continue</button>
+          <img src="post1.png" class="insta-post" data-id="1">
+          <img src="post2.png" class="insta-post" data-id="2">
+          <img src="post3.png" class="insta-post" data-id="3">
+          <img src="post4.png" class="insta-post" data-id="4">
+          <img src="post5.png" class="insta-post" data-id="5">
+          <img src="post6.png" class="insta-post" data-id="6">
         </div>
       </div>
     </div>
-    <button id="continueBtn" class="continue-button" style="display: none;">Continue</button>
   </div>
 
   <div id="toast" class="toast"></div>
@@ -50,162 +52,164 @@
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const centerBox = document.querySelector('.center-box');
-      centerBox.style.animation = 'fadeInOnly 1s ease-out forwards';
-      const textElement = document.getElementById('typewriter-text');
-      const continuePrompt = document.getElementById('continuePrompt');
-      const clickSound = document.getElementById('clickSound');
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      let typeBuffer = null;
+   document.addEventListener('DOMContentLoaded', () => {
+    const centerBox = document.querySelector('.center-box');
+    centerBox.style.animation = 'fadeInOnly 1s ease-out forwards';
+  const textElement = document.getElementById('typewriter-text');
+  const continuePrompt = document.getElementById('continuePrompt');
+  const clickSound = document.getElementById('clickSound');
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  let typeBuffer = null;
 
-      const texts = [
-        "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
-        "Authorities are scrambling to trace his digital footprint, but clues are vanishing as quickly as they appear.",
-        "You've been tasked to dig deeper - to uncover the truth behind his disappearance and decode the feed."
-      ];
-      let currentIndex = 0;
+  const texts = [
+    "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
+    "Authorities are scrambling to trace his digital footprint, but clues are vanishing as quickly as they appear.",
+    "You've been tasked to dig deeper - to uncover the truth behind his disappearance and decode the feed."
+  ];
+  let currentIndex = 0;
 
-      function typeWriterText(text, callback) {
-        textElement.innerHTML = '';
-        const paragraph = document.createElement('p');
-        paragraph.style.margin = '0 0 1rem 0';
-        const cursor = document.createElement('span');
-        cursor.className = 'typewriter-cursor';
-        paragraph.appendChild(cursor);
-        textElement.appendChild(paragraph);
+  function typeWriterText(text, callback) {
+    textElement.innerHTML = '';
+    const paragraph = document.createElement('p');
+    paragraph.style.margin = '0 0 1rem 0';
+    const cursor = document.createElement('span');
+    cursor.className = 'typewriter-cursor';
+    paragraph.appendChild(cursor);
+    textElement.appendChild(paragraph);
 
-        let i = 0;
-        const speed = 30;
-        let source;
+    let i = 0;
+    const speed = 30;
+    let source;
 
-        if (typeBuffer) {
-          source = audioContext.createBufferSource();
-          source.buffer = typeBuffer;
-          source.loop = true;
-          source.connect(audioContext.destination);
-          source.start();
+    if (typeBuffer) {
+      source = audioContext.createBufferSource();
+      source.buffer = typeBuffer;
+      source.loop = true;
+      source.connect(audioContext.destination);
+      source.start();
+    }
+
+    function typeNextChar() {
+      if (i < text.length) {
+        const charSpan = document.createElement('span');
+        charSpan.textContent = text.charAt(i);
+        paragraph.insertBefore(charSpan, cursor);
+        i++;
+        setTimeout(typeNextChar, speed);
+      } else {
+        if (source) {
+          source.stop();
+          source.disconnect();
         }
-
-        function typeNextChar() {
-          if (i < text.length) {
-            const charSpan = document.createElement('span');
-            charSpan.textContent = text.charAt(i);
-            paragraph.insertBefore(charSpan, cursor);
-            i++;
-            setTimeout(typeNextChar, speed);
-          } else {
-            if (source) {
-              source.stop();
-              source.disconnect();
-            }
-            cursor.remove();
-            if (callback) callback();
-          }
-        }
-
-        typeNextChar();
+        cursor.remove();
+        if (callback) callback();
       }
+    }
 
-      function showNextText() {
-        if (audioContext.state === 'suspended') {
-          audioContext.resume();
-        }
+    typeNextChar();
+  }
 
-        if (currentIndex < texts.length) {
-          continuePrompt.classList.remove('show');
-          typeWriterText(texts[currentIndex], () => {
-            continuePrompt.classList.add('show');
-          });
-          currentIndex++;
-        } else {
-          const scene1 = document.getElementById('scene1');
-          const scene2 = document.getElementById('scene2');
-          continuePrompt.classList.remove('show');
-          scene1.classList.add('fade-out');
+  function showNextText() {
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
 
-          setTimeout(() => {
-            scene1.style.display = 'none';
-            scene2.style.display = 'flex';
-            scene2.style.opacity = '1';
+    if (currentIndex < texts.length) {
+      continuePrompt.classList.remove('show');
+      typeWriterText(texts[currentIndex], () => {
+        continuePrompt.classList.add('show');
+      });
+      currentIndex++;
+    } else {
+      const scene1 = document.getElementById('scene1');
+      const scene2 = document.getElementById('scene2');
+      continuePrompt.classList.remove('show');
+      scene1.classList.add('fade-out');
 
-            document.querySelectorAll('.insta-post').forEach(post => {
-              post.addEventListener('click', () => {
-                clickSound.currentTime = 0;
-                clickSound.play().catch(() => {});
+      setTimeout(() => {
+        scene1.style.display = 'none';
+        scene2.style.display = 'flex';
+        scene2.style.opacity = '1';
 
-                const postId = post.getAttribute('data-id');
-                const suspiciousIds = ['4', '5', '6'];
-                const isSuspicious = suspiciousIds.includes(postId);
+        document.querySelectorAll('.insta-post').forEach(post => {
+  post.addEventListener('click', () => {
+    clickSound.currentTime = 0;
+    clickSound.play().catch(() => {});
 
-                post.classList.toggle('suspicious');
-                showToast(isSuspicious
-                  ? "✅ Good eye! This post is suspicious."
-                  : "❌ Hmm... this one doesn't seem suspicious. Try again."
-                );
-              });
-            });
-          }, 1000);
-        }
-      }
+    const postId = post.getAttribute('data-id');
+    const suspiciousIds = ['4', '5', '6'];
+    const isSuspicious = suspiciousIds.includes(postId);
 
-      function showToast(message) {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.classList.add('toast-show');
-        
-        setTimeout(() => {
-          toast.classList.remove('toast-show');
-          
-          // Check if all suspicious posts are selected AFTER toast fades
-          const selected = Array.from(document.querySelectorAll('.insta-post.suspicious'))
-                            .map(p => p.getAttribute('data-id'));
-          const suspiciousIds = ['4', '5', '6'];
-          const allFound = suspiciousIds.every(id => selected.includes(id));
-          
-          if (allFound) {
-            const continueBtn = document.getElementById('continueBtn');
-            continueBtn.style.display = 'inline-block';
-            setTimeout(() => {
-              continueBtn.style.opacity = '1';
-            }, 10);
-          }
-        }, 2000); // Matches toast fade-out time
-      }
+    post.classList.toggle('suspicious');
+    showToast(isSuspicious
+      ? "✅ Good eye! This post is suspicious."
+      : "❌ Hmm... this one doesn't seem suspicious. Try again."
+    );
 
-      // Unlock audio on any user interaction
-      document.body.addEventListener('click', () => {
-        if (audioContext.state === 'suspended') {
-          audioContext.resume();
-        }
-      }, { once: true });
+    // Check if all suspicious posts are selected
+    const selected = Array.from(document.querySelectorAll('.insta-post.suspicious'))
+                          .map(p => p.getAttribute('data-id'));
 
-      // Fetch and decode audio
-      fetch('typewriter-audio-final.mp3')
-        .then(response => response.arrayBuffer())
-        .then(data => audioContext.decodeAudioData(data))
-        .then(decoded => {
-          typeBuffer = decoded;
-          setTimeout(() => showNextText(), 100);
-        })
-        .catch(err => {
-          console.warn("Audio preload failed", err);
-          showNextText();
-        });
+    const allFound = suspiciousIds.every(id => selected.includes(id));
 
-      continuePrompt.addEventListener('click', showNextText);
+    if (allFound) {
+      document.getElementById('continueBtn').style.display = 'inline-block';
+    } else {
+      document.getElementById('continueBtn').style.display = 'none';
+    }
+  });
+});
 
-      // Shuffle posts
-      const postGrid = document.getElementById("postGrid");
-      if (postGrid) {
-        const posts = Array.from(postGrid.children);
-        for (let i = posts.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [posts[i], posts[j]] = [posts[j], posts[i]];
-        }
-        posts.forEach(post => postGrid.appendChild(post));
-      }
+      }, 1000);
+    }
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('toast-show');
+    setTimeout(() => {
+      toast.classList.remove('toast-show');
+    }, 2000);
+  }
+
+  // Unlock audio on any user interaction
+  document.body.addEventListener('click', () => {
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+  }, { once: true });
+
+  // Fetch and decode audio, THEN show first text
+  fetch('typewriter-audio-final.mp3')
+    .then(response => response.arrayBuffer())
+    .then(data => audioContext.decodeAudioData(data))
+    .then(decoded => {
+      typeBuffer = decoded;
+      // Wait a few ms to ensure AudioContext can play right after decoding
+      setTimeout(() => {
+        showNextText(); // Show first message automatically
+      }, 100);
+    })
+    .catch(err => {
+      console.warn("Audio preload failed", err);
+      showNextText(); // fallback if audio doesn't load
     });
+
+  continuePrompt.addEventListener('click', showNextText);
+
+  // Shuffle posts
+  const postGrid = document.getElementById("postGrid");
+  if (postGrid) {
+    const posts = Array.from(postGrid.children);
+    for (let i = posts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [posts[i], posts[j]] = [posts[j], posts[i]];
+    }
+    posts.forEach(post => postGrid.appendChild(post));
+  }
+});
+
   </script>
 </body>
 </html>
