@@ -180,7 +180,7 @@ inline-block
   font-family: 'Syne Mono', monospace;
   text-align: center;
   text-shadow: 0 0 10px red;
-  margin: 0;
+  margin-top: 10px;
   opacity: 0;
   animation: fadeInOnly 2s ease-in-out forwards;
 }
