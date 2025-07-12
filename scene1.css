@@ -11,6 +11,11 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background-color: red !important;
+}
+
+.center-box {
+  border: 5px solid yellow !important;
 }
 
 .scene-wrapper {
@@ -69,6 +74,7 @@ body {
   min-height: 10em;
   max-height: 10em;
   overflow-y: auto;
+  color: lime !important
 }
 
 .typewriter-cursor {
