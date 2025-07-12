@@ -80,6 +80,7 @@ body {
   min-height: 10em; /* This prevents height shift during typing */
   max-height: 10em;
   overflow-y: auto;
+  text-align: center;
 }
 
 
