@@ -31,6 +31,11 @@
     min-height: 400px;  /* Minimum mobile height */
     padding: 30px 20px;
   }
+
+  .center-box p {
+    font-size: 20px;
+    padding: 0 10px;
+  }
 }
 
 /* Optional: Add fade-in animation if needed */
