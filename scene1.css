@@ -194,7 +194,7 @@ inline-block
   font-size: 18px;
   color: white;
   font-family: 'Syne Mono', monospace;
-  margin-top: 1rem;
+  margin-top: 12px;
   text-align: center;
   opacity: 0;
   animation: fadeInOnly 2s ease-in-out 1s forwards;
