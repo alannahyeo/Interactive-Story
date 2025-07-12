@@ -49,6 +49,11 @@ iframe{
     color: white;
     font-family: Syne Mono, monospace;
     margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .highlight{
@@ -67,6 +72,8 @@ iframe{
     font-family: Syne Mono, monospace;
     box-shadow: 0 0 16px red, 0 0 32px red;
     transition: 0.3s ease;
+    all: initial;
+    font-family: 'Syne Mono', monospace !important;
 }
 
 .start-button:hover {
