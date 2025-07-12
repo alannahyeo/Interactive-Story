@@ -281,7 +281,9 @@ inline-block
  box-shadow: 0 0 12px red, 0 0 24px red;
  z-index: 9998;
  display: none;
- transition: all 0.3s ease;
+ transition: opacity 0.5s ease-in-out;
+ opacity: 0;
+ 
 }
 
 .continue-button:hover{
