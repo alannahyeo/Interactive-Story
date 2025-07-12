@@ -7,9 +7,9 @@
   font-family: 'Syne Mono', monospace;
   text-align: center;
   color: white;
-    width: 60%;
-    max-width: 600px;
-    min-height: 400px;
+  width: 500px;
+  min-height: 400px;
+  padding: 20px 30px;
   overflow-y: hidden;
   box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
   display: flex;
