@@ -1,24 +1,36 @@
-/* common.css */
 .center-box {
   background-color: black;
   border: 2px solid black;
   border-radius: 20px;
-  padding: 20px 60px 40px 60px;
   font-family: 'Syne Mono', monospace;
-  text-align: center;
   color: white;
-  width: 500px;
-  min-height: 400px;
-  padding: 20px 30px;
-  overflow-y: hidden;
-  box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
+  
+  /* FIXED DIMENSIONS (no min/max) */
+  width: 600px;          /* Strict width */
+  height: 500px;         /* Strict height */
+  
+  /* Centering & Layout */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  margin: 0 auto;      /* Center horizontally */
-  position: relative;  /* For child positioning */
+  margin: 0 auto;
+  padding: 40px;
+  
+  /* Effects */
+  box-shadow: 0 0 60px rgba(255,255,255,0.4);
+  position: relative;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .center-box {
+    width: 95%;         /* Full width on small screens */
+    height: auto;       /* Flexible height */
+    min-height: 400px;  /* Minimum mobile height */
+    padding: 30px 20px;
+  }
 }
 
 /* Optional: Add fade-in animation if needed */
