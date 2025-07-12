@@ -1,53 +1,280 @@
-.center-box {
-  background-color: black;
-  border: 2px solid black;
-  border-radius: 20px;
-  font-family: 'Syne Mono', monospace;
+body {
+  background-image: url('homepage-background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0;
+  font-family: 'Syne Mono', monospace, sans-serif;
   color: white;
-  
-  /* FIXED DIMENSIONS (no min/max) */
-  width: 800px;          /* Strict width */
-  height: 500px;         /* Strict height */
-  
-  /* Centering & Layout */
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  margin: 0 auto;
-  padding: 20px 40px;
-  
-  /* Effects */
-  box-shadow: 0 0 60px rgba(255,255,255,0.4);
+  overflow: hidden;
+}
+
+.center-box {
+  opacity: 0;
+  animation: fadeInOnly 1s ease forwards;
+}
+
+
+@keyframes fadeInOnly {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.scene-wrapper {
+  width: 100%;
   position: relative;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 600px) {
-  .center-box {
-    width: 95%;         /* Full width on small screens */
-    height: auto;       /* Flexible height */
-    min-height: 400px;  /* Minimum mobile height */
-    padding: 30px 20px;
-  }
+.scene-content {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
 
-  .center-box p {
-    font-size: 20px;
-    padding: 0 10px;
-  }
+.top-text {
+  font-size: 36px;
+  color: red;
+  margin-top: 0;
+  text-align: center;
+  text-shadow: 0 0 10px red, 0 0 20px red;
+}
 
-  .insta-post {
-    max-width: 110px;
+.social-media-text {
+  font-size: 36px;
+  display: block;
+  margin-top: 10px;
+}
+
+.content-split {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.left-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+#typewriter-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.8;
+  width: 100%;
+  font-size: 1.1rem;
+  min-height: 10em; /* This prevents height shift during typing */
+  max-height: 10em;
+  overflow-y: auto;
+  text-align: center;
+}
+
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  background: red;
+  height: 1em;
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.continue-prompt {
+  font-family: 'Syne Mono', monospace;
+  font-size: 14px;
+  color: red;
+  text-shadow: 0 0 5px red, 0 0 10px red;
+  cursor: pointer;
+  user-select: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.continue-prompt.show {
+  visibility: visible;
+  opacity: 1;
+  animation: glowText 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glowText {
+  from {
+    text-shadow: 0 0 5px red;
+    opacity: 0.6;
+  }
+  to {
+    text-shadow: 0 0 20px red;
+    opacity: 1;
   }
 }
 
-/* Optional: Add fade-in animation if needed */
-@keyframes fadeInOnly {
+.right-empty {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.right-image {
+  max-width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(255, 0, 0, 0.4), 0 0 12px rgba(255, 0, 0, 0.3);
+  margin-top: -10px;
+}
+
+.fade-in {
+  animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-.fade-in {
-  animation: fadeInOnly 1s ease forwards;
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none;
+}
+
+#scene2 {
+  opacity: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 2s ease-in-out;
+  width: 100%;
+  height: 100%;
+  padding: 10;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.final-title {
+  font-size: 28px;
+  color: red;
+  font-family: 'Syne Mono', monospace;
+  text-align: center;
+  text-shadow: 0 0 10px red;
+  margin: 0;
+  opacity: 0;
+  animation: fadeInOnly 2s ease-in-out forwards;
+  margin-bottom: 10px;
+}
+
+@keyframes fadeInOnly {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.final-subtitle{
+  font-size: 18px;
+  color: white;
+  font-family: 'Syne Mono', monospace;
+  margin-top: 1rem;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInOnly 2s ease-in-out 1s forwards;
+}
+
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 8px;;
+  width: 100%;
+  justify-items: center;
+  margin-bottom: 20px;
+}
+
+.insta-post {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.insta-post:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px red;
+}
+
+.suspicious {
+  outline: 2px solid red;
+  box-shadow: 0 0 15px red;
+}
+
+@media (max-width: 600px) {
+  .instagram-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .insta-post {
+    max-width: 120px;
+  }
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  color: white;
+  border: 2px solid red;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px red;
+  font-family: 'Syne Mono', monospace;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  margin-top: 30px;
+}
+
+.toast-show {
+  opacity: 1;
+}
+
+.continue-button {
+  margin-top: 1.5rem;
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  font-family: 'Syne Mono', monospace;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px red;
+  transition: background-color 0.3s ease;
+}
+
+.continue-button:hover{
+  background-color: #cc0000;
 }
