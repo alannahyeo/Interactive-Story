@@ -7,7 +7,7 @@
   
   /* FIXED DIMENSIONS (no min/max) */
   width: 800px;          /* Strict width */
-  height: 600px;         /* Strict height */
+  height: 500px;         /* Strict height */
   
   /* Centering & Layout */
   display: flex;
