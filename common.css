@@ -24,7 +24,7 @@
 }
 
 /* Mobile responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .center-box {
     width: 95%;         /* Full width on small screens */
     height: auto;       /* Flexible height */
@@ -35,6 +35,10 @@
   .center-box p {
     font-size: 20px;
     padding: 0 10px;
+  }
+
+  .insta-post {
+    max-width: 110px;
   }
 }
 
