@@ -171,7 +171,6 @@ body {
   padding: 10;
   margin: 0;
   box-sizing: border-box;
-  position: relative;
 }
 
 .final-title {
@@ -237,12 +236,12 @@ body {
 
   .insta-post {
     max-width: 120px;
-  }
+}
 }
 
 .toast {
   position: fixed;
-  bottom: 20px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   background: black;
@@ -255,23 +254,10 @@ body {
   z-index: 1000;
   opacity: 0;
   transition: opacity 0.5s ease;
-  margin-top: 30px;
 }
 
 .toast-show {
   opacity: 1;
-  animation: toastRise 0.3s ease-out;
-}
-
-@keyframes toastRise {
-  from {
-    transform: translate(-50%, 10px);
-    opacity: 0;
-  }
-  to {
-    transform: translate(-50%, 0);
-    opacity: 1;
-  }
 }
 
 .continue-button {
