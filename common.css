@@ -1,12 +1,15 @@
-/* === COMMON CENTER BOX LAYOUT === */
 .center-box {
   background-color: black;
   border: 2px solid black;
   border-radius: 20px;
   font-family: 'Syne Mono', monospace;
   color: white;
-  width: 800px;
-  height: 500px;
+  
+  /* FIXED DIMENSIONS (no min/max) */
+  width: 800px;          /* Strict width */
+  height: 500px;         /* Strict height */
+  
+  /* Centering & Layout */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,34 +17,18 @@
   box-sizing: border-box;
   margin: 0 auto;
   padding: 20px 40px;
+  
+  /* Effects */
   box-shadow: 0 0 60px rgba(255,255,255,0.4);
   position: relative;
-  opacity: 0;              /* Start hidden */
-  animation: fadeInGlobal 1s ease-out forwards; /* Global fade-in */
 }
 
-/* === GLOBAL FADE-IN === */
-@keyframes fadeInGlobal {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.fade-in {
-  animation: fadeInGlobal 1s ease forwards;
-}
-
-.fade-out {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  pointer-events: none;
-}
-
-/* === RESPONSIVE CENTER BOX === */
+/* Mobile responsiveness */
 @media (max-width: 600px) {
   .center-box {
-    width: 95%;
-    height: auto;
-    min-height: 400px;
+    width: 95%;         /* Full width on small screens */
+    height: auto;       /* Flexible height */
+    min-height: 400px;  /* Minimum mobile height */
     padding: 30px 20px;
   }
 
@@ -53,4 +40,14 @@
   .insta-post {
     max-width: 110px;
   }
+}
+
+/* Optional: Add fade-in animation if needed */
+@keyframes fadeInOnly {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeInOnly 1s ease forwards;
 }
