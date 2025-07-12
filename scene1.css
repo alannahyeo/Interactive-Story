@@ -14,17 +14,6 @@ body {
 }
 
 .center-box {
-  background-color: black;
-  border: 2px solid black;
-  border-radius: 20px;
-  padding: 20px 60px 40px 60px;
-  font-family: Syne Mono, monospace;
-  text-align: center;
-  color: white;
-  width: 60%;
-  max-width: 600px;
-   min-height: 400px;
-  box-shadow: 0 0 60px rgba(255,255,255,0.4);
   opacity: 0;
   animation: fadeInOnly 1s ease forwards;
 }
@@ -212,8 +201,8 @@ body {
 .instagram-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  padding: 0.5rem;
+  gap: 15px;
+  padding: 10px;;
   width: 100%;
   justify-items: center;
   margin-bottom: 20px;
@@ -221,7 +210,7 @@ body {
 
 .insta-post {
   width: 100%;
-  max-width: 150px;
+  max-width: 180px;
   height: auto;
   border-radius: 10px;
   cursor: pointer;
