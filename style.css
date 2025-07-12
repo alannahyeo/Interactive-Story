@@ -69,10 +69,9 @@ iframe{
     border: 3px solid red;
     border-radius: 12px;
     cursor: pointer;
-    font-family: Syne Mono, monospace;
-    box-shadow: 0 0 16px red, 0 0 32px red;
+    box-shadow: 0 0 16px red, 0 0 32px red !important;
     transition: 0.3s ease;
-    all: initial;
+    all: unset !important;
     font-family: 'Syne Mono', monospace !important;
 }
 
