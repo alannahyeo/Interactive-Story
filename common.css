@@ -40,12 +40,6 @@
   .insta-post {
     max-width: 110px;
   }
-
-  .toast {
-    bottom: 10px;
-    width: 90%;
-    text-align: center;
-  }
 }
 
 /* Optional: Add fade-in animation if needed */
