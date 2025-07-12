@@ -2,19 +2,46 @@
 <html>
 <head>
     <title>Master</title>
+    <base href="https://alannahyeo.github.io/Interactive-Story/">
+    <link rel="stylesheet" href="https://alannahyeo.github.io/Interactive-Story/style.css?v=20240712">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; padding: 0; overflow: hidden; }
-        #sceneFrame { 
-            width: 100vw; 
-            height: 100vh; 
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+        }
+        #sceneFrame {
+            width: 100%;
+            height: 100vh;
             border: none;
-            position: fixed;
-            top: 0;
-            left: 0;
+            
         }
     </style>
 </head>
 <body>
-    <iframe id="sceneFrame" src="https://alannahyeo.github.io/Interactive-Story/scene1.html"></iframe>
+    <audio id="bgAudio" loop>
+        <source src="ominous-audio.mp3" type="audio/mpeg">
+    </audio>
+    <iframe id="sceneFrame" src="index.html"></iframe>
+
+    <script>
+        // Handle audio autoplay
+        document.addEventListener('click', () => {
+            const audio = document.getElementById('bgAudio');
+            audio.play().catch(e => console.log("Audio play failed:", e));
+        }, { once: true });
+        
+        // Ensure proper path resolution
+        document.getElementById('sceneFrame').onload = function() {
+            this.contentWindow.postMessage({
+                type: 'setBasePath',
+                path: 'https://alannahyeo.github.io/Interactive-Story/'
+            }, '*');
+        };
+    </script>
 </body>
 </html>
