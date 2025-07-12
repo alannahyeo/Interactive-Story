@@ -7,15 +7,15 @@
   font-family: 'Syne Mono', monospace;
   text-align: center;
   color: white;
-  width: 60%;
-  max-width: 600px;
-  min-height: 400px;
+  width: 600px;        /* Fixed width (no %) */
+  height: 400px;       /* Fixed height (no min/max) */
   box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  margin: 0 auto; /* Center horizontally */
+  margin: 0 auto;      /* Center horizontally */
+  position: relative;  /* For child positioning */
 }
 
 /* Optional: Add fade-in animation if needed */
