@@ -6,8 +6,8 @@
   color: white;
   
   /* FIXED DIMENSIONS (no min/max) */
-  width: 600px;          /* Strict width */
-  height: 500px;         /* Strict height */
+  width: 800px;          /* Strict width */
+  height: 600px;         /* Strict height */
   
   /* Centering & Layout */
   display: flex;
