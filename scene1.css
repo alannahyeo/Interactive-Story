@@ -235,7 +235,12 @@ inline-block
   }
 
   .insta-post {
-    max-width: 120px;
+    width: 100%;
+    max-width: 140px;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
   }
 }
 
