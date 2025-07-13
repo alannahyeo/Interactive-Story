@@ -1,3 +1,8 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
 body {
   background-image: url('homepage-background.png');
   background-size: cover;
@@ -80,6 +85,7 @@ body {
   min-height: 10em; /* This prevents height shift during typing */
   max-height: 10em;
   overflow-y: auto;
+  text-align: center;
 }
 
 
@@ -180,9 +186,8 @@ inline-block
   font-family: 'Syne Mono', monospace;
   text-align: center;
   text-shadow: 0 0 10px red;
-  margin: 0;
+  margin: 20px 0 0 0;
   opacity: 0;
-  animation: fadeInOnly 2s ease-in-out forwards;
 }
 
 @keyframes fadeInOnly {
@@ -194,10 +199,9 @@ inline-block
   font-size: 18px;
   color: white;
   font-family: 'Syne Mono', monospace;
-  margin-top: 1rem;
+  margin-top: 12px;
   text-align: center;
   opacity: 0;
-  animation: fadeInOnly 2s ease-in-out 1s forwards;
 }
 
 .instagram-grid {
@@ -241,7 +245,7 @@ inline-block
 
 .toast {
   position: fixed;
-  bottom: 40px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.85);
@@ -263,19 +267,283 @@ inline-block
 }
 
 .continue-button {
-  margin-top: 1.5rem;
-  padding: 10px 20px;
-  background-color: red;
-  color: white;
-  border: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 36px;
+  font-size: 18px;
   font-family: 'Syne Mono', monospace;
-  font-size: 16px;
+  background-color: black;
+  color: white;
+  border: 2px solid red;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 0 10px red;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 0 12px red, 0 0 24px red;
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
 }
 
 .continue-button:hover{
-  background-color: #cc0000;
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 0 20px red, 0 0 40px red;
+}
+
+.continue-button.show {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.4s ease;
+}
+
+.continue-button.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease-in-out;
+}
+
+.no-click {
+  pointer-events: none;
+  opacity: 0.6;
+  filter: grayscale(20%);
+}
+
+.center-box.fade-out .continue-button {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none;
+}
+
+.scene-wrapper.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none;
+}
+
+.center-box.fade-out * {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none;
+}
+
+.fade-title {
+  position: relative;
+  font-size: 36px;
+  color: red;
+  font-family: 'Syne Mono', monospace;
+  text-align: center;
+  opacity: 0;
+  filter: blur(8px);
+  transition: all 1.8s ease-in-out;
+  transform: scale(1.1);
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.fade-title.visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+.hidden-title {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#scene3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 10px;
+  transition: opacity 2s ease-in-out;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+#scene2 .insta-post {
+  transition: opacity 1s ease-in-out, transform 0.3s ease;
+}
+
+#scene2.fade-out .insta-post {
+  opacity: 0;
+}
+
+.final-title,
+.final-subtitle {
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+  transform: none;
+}
+
+#scene2.fade-out .final-title,
+#scene2.fade-out .final-subtitle {
+  opacity: 0;
+}
+
+.flip-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.card-wrapper {
+  height: 200px; /* Ensures consistent height */
+}
+
+.flip-container {
+  perspective: 1000px;
+  width: 100%;
+  height: 100%; /* Match card height */
+}
+
+.flip-card {
+  position: relative; /* IMPORTANT for stacking front/back */
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-color: black;
+  color: white;
+  border: 2px solid red;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Syne Mono', monospace;
+  font-size: 16px;
+  box-shadow: 0 0 10px red;
+  box-sizing: border-box;
+}
+
+.flip-card-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.tap-label {
+  font-size: 12px;
+  color: rgba(255, 68, 68, 0.6);
+  font-family: 'Syne Mono', monospace;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.4);
+  animation: glowText 1.5s ease-in-out infinite alternate;
+}
+
+.after-flip {
+  font-size: 18px;
+  color: white;
+  font-family: 'Syne Mono', monospace;
+  text-align: center;
+  margin-top: 20px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+.after-flip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hidden {
+  pointer-events: none;
+}
+
+.investigation-button {
+  margin-top: 20px;
+  padding: 14px 36px;
+  font-size: 18px;
+  font-family: 'Syne Mono', monospace;
+  background-color: black;
+  color: white;
+  border: 2px solid red;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 12px red, 0 0 24px red;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.investigation-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px red, 0 0 40px red;
+}
+
+.investigation-button.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hidden {
+  pointer-events: none;
+}
+
+.investigation-next-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.continue-button.inline {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  transform: none;
+  margin-top: 20px;
+  margin-bottom: 60px;
+  box-shadow: 0 0 12px red, 0 0 24px red;
+}
+
+#investigation2Btn {
+  max-width: 260px;      
+  padding: 10px 24px;     
+  font-size: 16px;       
+  margin-bottom: 20px;    
+}
+
+#scene3.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none;
 }
