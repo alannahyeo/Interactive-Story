@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="scene1.css?v=2" />
+  <link rel="stylesheet" href="scene1.css?v=3" />
   <link rel="stylesheet" href="common.css?v=2">
 </head>
 <body>
@@ -34,7 +34,6 @@
         <h1 class="final-title">Decipher The Suspicious Posts</h1>
         <p class="final-subtitle">Click on all the posts that seem suspicious</p>
         <div class="instagram-grid" id="postGrid">
-          <button id="continueBtn" class="continue-button" style="display: none;">Continue</button>
           <img src="post1.png" class="insta-post" data-id="1">
           <img src="post2.png" class="insta-post" data-id="2">
           <img src="post3.png" class="insta-post" data-id="3">
@@ -44,7 +43,60 @@
         </div>
       </div>
     </div>
+    <div id="scene3" class="scene-content" style="display: none; opacity: 0;">
+    <h1 id="fadeInTitle" class="fade-title">How are these posts suspicious?</h1>
+    <div class="flip-grid">
+  <div class="card-wrapper">
+    <div class="flip-container">
+      <div class="flip-card">
+        <div class="flip-card-front">
+          <div class="card-title">Locations Shown in Post</div>
+          <div class="tap-label">Tap me</div>
+        </div>
+        <div class="flip-card-back">Revealing your location can allow strangers to find or track you in real life.</div>
+      </div>
+    </div>
   </div>
+
+  <div class="card-wrapper">
+    <div class="flip-container">
+      <div class="flip-card">
+        <div class="flip-card-front">
+        <div class="card-title">Personal Details Shared</div>
+        <div class="tap-label">Tap me</div>
+      </div>
+        <div class="flip-card-back">Oversharing names, school, or schedules can make you vulnerable to scams or stalking.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-wrapper">
+    <div class="flip-container">
+      <div class="flip-card">
+        <div class="flip-card-front">
+        <div class="card-title">Barcode Exposed in Post</div>
+        <div class="tap-label">Tap me</div>
+      </div>
+        <div class="flip-card-back">Exposed barcodes can lead strangers to steal your information, impersonate you, or even find out where you are.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="investigation-next-container">
+  <p id="afterFlipText" class="after-flip hidden">Let's dig deeper into the disappearance of Eli...</p>
+  <button id="investigation2Btn" class="continue-button inline after-flip hidden">Investigation 2</button>
+</div>
+
+
+
+
+</div>
+
+  </div>
+    <button id="continueBtn" class="continue-button">Continue</button>
+  </div>
+
+ 
 
   <div id="toast" class="toast"></div>
 
@@ -57,8 +109,11 @@
   const textElement = document.getElementById('typewriter-text');
   const continuePrompt = document.getElementById('continuePrompt');
   const clickSound = document.getElementById('clickSound');
+   const suspiciousIds = ['4', '5', '6']
+   const clickedPosts = new Set();
   const audioContext = new (window.AudioContext || window.webkitAudioContext)();
   let typeBuffer = null;
+  let hasPlayedClickSound = false;
 
   const texts = [
     "Eli has mysteriously gone missing after a series of suspicious posts were shared on his social media feed...",
@@ -131,32 +186,51 @@
         scene2.style.display = 'flex';
         scene2.style.opacity = '1';
 
+
         document.querySelectorAll('.insta-post').forEach(post => {
   post.addEventListener('click', () => {
-    clickSound.currentTime = 0;
-    clickSound.play().catch(() => {});
+    const continueBtn = document.getElementById('continueBtn');
+    if (continueBtn.style.display === 'inline-block') return;
 
     const postId = post.getAttribute('data-id');
-    const suspiciousIds = ['4', '5', '6'];
+
+    // 🔊 Only play sound if this post hasn't been clicked before
+    if (!clickedPosts.has(postId)) {
+      clickSound.currentTime = 0;
+      clickSound.play().catch(() => {});
+      clickedPosts.add(postId);
+    }
+
     const isSuspicious = suspiciousIds.includes(postId);
 
-    post.classList.toggle('suspicious');
+    // ✅ Prevent re-marking the same suspicious post
+    if (post.classList.contains('suspicious')) return;
+
+    post.classList.add('suspicious');
+
     showToast(isSuspicious
       ? "✅ Good eye! This post is suspicious."
       : "❌ Hmm... this one doesn't seem suspicious. Try again."
     );
 
-    // Check if all suspicious posts are selected
-    const selected = Array.from(document.querySelectorAll('.insta-post.suspicious'))
-                          .map(p => p.getAttribute('data-id'));
+    const selectedSuspicious = Array.from(document.querySelectorAll('.insta-post.suspicious'))
+      .map(p => p.getAttribute('data-id'))
+      .filter(id => suspiciousIds.includes(id));
 
-    const allFound = suspiciousIds.every(id => selected.includes(id));
+    const allFound = suspiciousIds.every(id => selectedSuspicious.includes(id));
 
     if (allFound) {
-      document.getElementById('continueBtn').style.display = 'inline-block';
-    } else {
-      document.getElementById('continueBtn').style.display = 'none';
+      document.querySelectorAll('.insta-post').forEach(p => {
+        p.classList.add('no-click');
+      });
+
+      setTimeout (() => {
+        continueBtn.classList.add('show');
+      }, 2000);
     }
+    setTimeout (() => {
+      document.getElementById('fadeInTitle').classList.add('visible');
+    }, 2300);
   });
 });
 
@@ -208,7 +282,77 @@
     }
     posts.forEach(post => postGrid.appendChild(post));
   }
+
+  document.getElementById('continueBtn').addEventListener('click', () => {
+  const scene2 = document.getElementById('scene2');
+  const scene3 = document.getElementById('scene3');
+  const continueBtn = document.getElementById('continueBtn');
+
+  continueBtn.classList.remove('show');
+  continueBtn.classList.add('fade-out');
+
+  scene2.classList.add('fade-out');
+
+  setTimeout(() => {
+    scene2.style.display = 'none';
+    scene3.style.display = 'flex';
+
+    setTimeout(() => {
+      scene3.style.opacity = '1';
+      document.getElementById('fadeInTitle').classList.add('visible');
+    }, 100);
+  }, 1000);
 });
+
+const flipCards = document.querySelectorAll('.flip-card');
+const afterFlipText = document.getElementById('afterFlipText');
+
+flipCards.forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('flipped');
+
+    // ✅ Check if ALL cards are flipped
+    const allFlipped = Array.from(flipCards).every(c => c.classList.contains('flipped'));
+
+    if (allFlipped) {
+      afterFlipText.classList.add('visible');
+      document.getElementById('investigation2Btn').classList.add('visible');
+    }
+  });
+});
+
+document.getElementById('investigation2Btn').addEventListener('click', () => {
+    const button = document.getElementById('investigation2Btn');
+    const scene3 = document.getElementById('scene3');
+    const centerBox = document.querySelector('.center-box');
+    
+    // Apply fade-out animations
+    button.classList.add('fade-out');
+    scene3.classList.add('fade-out');
+    centerBox.classList.add('fade-out');
+    
+    // Wait for fade-out to complete before navigating
+    setTimeout(() => {
+        // Check if we're in an iframe (master.html) or standalone
+        if (window !== window.parent) {
+            // If in iframe, communicate with parent to change src
+            window.parent.postMessage({
+                type: 'changeScene',
+                scene: 'scene4.html'
+            }, '*');
+        } else {
+            // If standalone, navigate directly
+            window.location.href = 'scene4.html';
+        }
+    }, 1000); // Match this duration with your CSS transition time
+});
+
+
+
+
+});
+
+
 
   </script>
 </body>
